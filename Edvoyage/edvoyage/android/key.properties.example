@@ -1,0 +1,8 @@
+# Release Keystore Configuration
+# Copy this file to `key.properties` in this same `android/` directory and fill in your values.
+# IMPORTANT: Never commit `key.properties` or your `.jks` file to source control.
+
+storePassword=YOUR_KEYSTORE_PASSWORD
+keyPassword=YOUR_KEY_PASSWORD
+keyAlias=upload
+storeFile=upload-keystore.jks

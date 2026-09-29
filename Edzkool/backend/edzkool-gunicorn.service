@@ -1,0 +1,38 @@
+[Unit]
+Description=Edzkool Gunicorn Service
+After=network.target
+
+[Service]
+User=root
+Group=www-data
+WorkingDirectory=/root/edvoyage-backup-cursor/backend/Edzkool
+Environment="PATH=/usr/local/bin:/usr/bin:/bin"
+Environment="PYTHONPATH=/root/edvoyage-backup-cursor/backend/Edzkool"
+
+# Pre-start: kill any stale gunicorn processes and release port
+ExecStartPre=/bin/sh -c 'pkill -f "gunicorn" || true; sleep 2; fuser -k 8000/tcp 2>/dev/null || true; sleep 1'
+
+# Main gunicorn process with explicit bind
+ExecStart=/usr/local/bin/gunicorn -c gunicorn.conf.py edvoayge.wsgi:application --bind 127.0.0.1:8000
+
+# Proper shutdown
+ExecStop=/bin/kill -TERM $MAINPID
+ExecStopPost=/bin/sh -c 'sleep 2; pkill -f "gunicorn" || true'
+
+# Process management
+KillMode=mixed
+TimeoutStopSec=10
+TimeoutStartSec=30
+
+# Restart with longer delay to allow port release
+Restart=on-failure
+RestartSec=10
+StartLimitInterval=60s
+StartLimitBurst=3
+
+# Security
+PrivateTmp=true
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target

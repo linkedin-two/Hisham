@@ -1,0 +1,156 @@
+services:
+  - type: web
+    name: edvoyage-api
+    runtime: python
+    plan: free
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn edvoayge.wsgi:application --bind 0.0.0.0:$PORT --timeout 120 --workers 1"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+
+      # Django core
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: DJANGO_DEBUG
+        value: "False"
+      - key: WEB_CONCURRENCY
+        value: 1
+
+      # Flashcard PDF conversion — tuned for Render free tier (512 MB RAM)
+      - key: FLASHCARD_PDF_ZOOM
+        value: "1.5"
+      - key: FLASHCARD_JPEG_QUALITY
+        value: "80"
+
+      # Supabase REST API
+      - key: SUPABASE_URL
+        value: https://wpzhyvvnrzckwlgbjflp.supabase.co
+      - key: SUPABASE_SERVICE_KEY
+        sync: false
+      # Supabase PostgreSQL pooler (host/port/user are fixed in code; set password on Render)
+      # DATABASE_URL=postgresql://postgres.wpzhyvvnrzckwlgbjflp:[PASSWORD]@aws-1-ap-northeast-1.pooler.supabase.com:6543/postgres
+      - key: SUPABASE_DB_PASSWORD
+        sync: false
+      - key: SUPABASE_DB_USER
+        value: postgres.wpzhyvvnrzckwlgbjflp
+      - key: SUPABASE_REGION
+        value: ap-northeast-1
+      - key: SUPABASE_POOLER_HOST
+        value: aws-1-ap-northeast-1.pooler.supabase.com
+      - key: SUPABASE_POOLER_PORT
+        value: "6543"
+      - key: DATABASE_URL
+        sync: false
+
+      # AWS S3 — required for all file uploads (localhost and production)
+      - key: AWS_STORAGE_BUCKET_NAME
+        value: edvoyage-edzkool-media
+      - key: AWS_S3_REGION_NAME
+        value: us-east-1
+      - key: AWS_ACCESS_KEY_ID
+        sync: false        # Set manually in Render Dashboard → Environment
+      - key: AWS_SECRET_ACCESS_KEY
+        sync: false        # Set manually in Render Dashboard → Environment
+
+      # Email — AWS SES
+      - key: EMAIL_HOST
+        value: email-smtp.us-east-1.amazonaws.com
+      - key: EMAIL_PORT
+        value: 587
+      - key: EMAIL_USE_TLS
+        value: "True"
+      - key: EMAIL_HOST_USER
+        sync: false
+      - key: EMAIL_HOST_PASSWORD
+        sync: false
+      - key: DEFAULT_FROM_EMAIL
+        value: office@bfuturetechnologies.com
+
+      # OpenAI
+      - key: OPENAI_API_KEY
+        sync: false
+
+  # Reliable PDF worker for free tier — no Celery/Redis required.
+  # Picks up pending flashcards every 5 minutes (also retries stale jobs).
+  - type: cron
+    name: flashcard-pdf-worker
+    runtime: python
+    plan: free
+    schedule: "*/5 * * * *"
+    buildCommand: "./build.sh"
+    startCommand: "python manage.py process_flashcard_pdfs --limit 1"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: FLASHCARD_PDF_ZOOM
+        value: "1.5"
+      - key: FLASHCARD_JPEG_QUALITY
+        value: "80"
+      - key: DJANGO_SECRET_KEY
+        fromService:
+          type: web
+          name: edvoyage-api
+          envVarKey: DJANGO_SECRET_KEY
+      - key: DJANGO_DEBUG
+        value: "False"
+      - key: AWS_STORAGE_BUCKET_NAME
+        fromService:
+          type: web
+          name: edvoyage-api
+          envVarKey: AWS_STORAGE_BUCKET_NAME
+      - key: AWS_S3_REGION_NAME
+        fromService:
+          type: web
+          name: edvoyage-api
+          envVarKey: AWS_S3_REGION_NAME
+      - key: AWS_ACCESS_KEY_ID
+        fromService:
+          type: web
+          name: edvoyage-api
+          envVarKey: AWS_ACCESS_KEY_ID
+      - key: AWS_SECRET_ACCESS_KEY
+        fromService:
+          type: web
+          name: edvoyage-api
+          envVarKey: AWS_SECRET_ACCESS_KEY
+      - key: SUPABASE_URL
+        fromService:
+          type: web
+          name: edvoyage-api
+          envVarKey: SUPABASE_URL
+      - key: SUPABASE_SERVICE_KEY
+        fromService:
+          type: web
+          name: edvoyage-api
+          envVarKey: SUPABASE_SERVICE_KEY
+      - key: SUPABASE_DB_PASSWORD
+        fromService:
+          type: web
+          name: edvoyage-api
+          envVarKey: SUPABASE_DB_PASSWORD
+      - key: SUPABASE_DB_USER
+        fromService:
+          type: web
+          name: edvoyage-api
+          envVarKey: SUPABASE_DB_USER
+      - key: SUPABASE_REGION
+        fromService:
+          type: web
+          name: edvoyage-api
+          envVarKey: SUPABASE_REGION
+      - key: SUPABASE_POOLER_HOST
+        fromService:
+          type: web
+          name: edvoyage-api
+          envVarKey: SUPABASE_POOLER_HOST
+      - key: SUPABASE_POOLER_PORT
+        fromService:
+          type: web
+          name: edvoyage-api
+          envVarKey: SUPABASE_POOLER_PORT
+      - key: DATABASE_URL
+        fromService:
+          type: web
+          name: edvoyage-api
+          envVarKey: DATABASE_URL

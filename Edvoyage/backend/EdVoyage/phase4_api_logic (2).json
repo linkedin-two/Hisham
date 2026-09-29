@@ -1,0 +1,1344 @@
+{
+  "meta": {
+    "project": "edvoayge",
+    "api_version_prefix": "/api/v1/",
+    "generated_by": "Cascade",
+    "notes": [
+      "Effective paths below are computed from edvoayge/urls.py includes + each app urls.py registrations.",
+      "Several apps re-prefix resources (e.g., universities.urls registers 'universities' while included at /api/v1/universities/ => /api/v1/universities/universities/).",
+      "payments.urls defines paths under 'api/payments/' while included at /api/v1/payments/ => effective prefix /api/v1/payments/api/payments/."
+    ]
+  },
+  "api_groups": {
+    "users": {
+      "base_include": "/api/v1/users/",
+      "endpoints": [
+        {
+          "path": "/api/v1/users/users/",
+          "methods": {
+            "GET": {
+              "handler": "users.views.list_users",
+              "auth": "not enforced in view",
+              "serializers": ["users.serializers.UserSerializer"],
+              "steps": [
+                "Query all User rows (User.objects.all())",
+                "Serialize with UserSerializer(many=True)",
+                "Return {success: true, data: [...]}"
+              ],
+              "side_effects": [],
+              "errors": []
+            }
+          }
+        },
+        {
+          "path": "/api/v1/users/users/by-email/",
+          "methods": {
+            "GET": {
+              "handler": "users.views.get_user_by_email",
+              "auth": "not enforced in view",
+              "serializers": ["users.serializers.UserSerializer"],
+              "request": {
+                "query_params": {"email": "required"}
+              },
+              "steps": [
+                "Read email from request.query_params['email']",
+                "If missing/blank => 400 {success:false,message:'Email parameter is required'}",
+                "Call _get_or_create_user_by_email(email)",
+                "Helper searches User by email (case-insensitive) OR profile.email; if not found creates a new User w/ unique username + unusable password and ensures UserProfile exists",
+                "Serialize user with UserSerializer",
+                "Return {success:true,data:user}"
+              ],
+              "side_effects": [
+                "May create User row",
+                "May create UserProfile row",
+                "May set unusable password"
+              ],
+              "errors": [
+                {
+                  "status": 400,
+                  "when": "email missing",
+                  "response": "{success:false,message:'Email parameter is required'}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "path": "/api/v1/users/upload-profile-image/",
+          "methods": {
+            "POST": {
+              "handler": "users.views.upload_profile_image",
+              "auth": "not enforced in view",
+              "request": {
+                "content_type": "multipart/form-data",
+                "fields": {
+                  "email": "required (form field or query param)",
+                  "profile_picture": "required (file)"
+                }
+              },
+              "serializers": ["users.serializers.UserSerializer"],
+              "steps": [
+                "Read email from request.data['email'] or request.query_params['email']",
+                "Validate email present => else 400",
+                "Read profile_picture from request.FILES",
+                "Validate file present => else 400",
+                "Call _get_or_create_user_by_email(email)",
+                "Get or create UserProfile(user=user, defaults={email:user.email})",
+                "Set profile.profile_picture=file and save",
+                "Serialize user and return success"
+              ],
+              "side_effects": [
+                "May create User + UserProfile",
+                "Writes media file field (profile picture)"
+              ],
+              "errors": [
+                {
+                  "status": 400,
+                  "when": "email missing",
+                  "response": "{success:false,message:'Email parameter is required'}"
+                },
+                {
+                  "status": 400,
+                  "when": "profile_picture missing",
+                  "response": "{success:false,message:'profile_picture file is required'}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "path": "/api/v1/users/send-otp/",
+          "methods": {
+            "POST": {
+              "handler": "users.sub_views.SendOTPView.post",
+              "auth": "not enforced in view",
+              "request": {
+                "json": {"contact": "required email"}
+              },
+              "serializers": [],
+              "steps": [
+                "Read contact from request.data['contact']",
+                "Validate present and contains '@'",
+                "Generate 6-digit numeric OTP",
+                "Create OTPVerification(otp_type='register', contact=contact, otp_code=otp_code)",
+                "EmailService.send_otp_email(contact, otp_code)",
+                "Return 201 with {success:true,message:'OTP sent',otp:<code>}"
+              ],
+              "side_effects": [
+                "Creates OTPVerification row",
+                "Sends email"
+              ],
+              "errors": [
+                {
+                  "status": 400,
+                  "when": "contact missing",
+                  "response": "{success:false,message:'Email required'}"
+                },
+                {
+                  "status": 400,
+                  "when": "contact not email-like",
+                  "response": "{success:false,message:'Invalid email'}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "path": "/api/v1/users/otp/",
+          "methods": {
+            "GET": {
+              "handler": "users.otp_views.OTPVerificationViewSet.list",
+              "auth": "DRF default (not specified here)",
+              "serializers": ["users.serializers.OTPVerificationSerializer"],
+              "steps": [
+                "Return OTPVerification queryset (get_queryset returns OTPVerification.objects.all())"
+              ],
+              "side_effects": [],
+              "errors": []
+            },
+            "POST": {
+              "handler": "users.otp_views.OTPVerificationViewSet.create",
+              "auth": "DRF default (not specified here)",
+              "serializers": ["users.serializers.OTPVerificationSerializer"],
+              "steps": [
+                "Standard DRF create for OTPVerification using serializer_class=OTPVerificationSerializer"
+              ],
+              "side_effects": ["Creates OTPVerification row"],
+              "errors": []
+            }
+          },
+          "additional_router_endpoints": [
+            "/api/v1/users/otp/{id}/ (GET, PUT, PATCH, DELETE)"
+          ]
+        },
+        {
+          "path": "/api/v1/users/otp/create/",
+          "methods": {
+            "POST": {
+              "handler": "users.otp_views.OTPVerificationViewSet.create_otp",
+              "auth": "DRF default (not specified here)",
+              "serializers": ["users.serializers.OTPCreateSerializer", "users.serializers.OTPVerificationSerializer"],
+              "steps": [
+                "Validate request with OTPCreateSerializer (otp_type, contact)",
+                "Generate OTP code (6 digits)",
+                "Create OTPVerification row",
+                "Send email via EmailService.send_otp_email",
+                "If email send succeeds => return 201 with OTPVerificationSerializer(otp)",
+                "If email send fails => delete OTP row and return 500"
+              ],
+              "side_effects": ["Creates then maybe deletes OTPVerification", "Sends email"],
+              "errors": [
+                {
+                  "status": 500,
+                  "when": "EmailService.send_otp_email returns falsy",
+                  "response": "{success:false,message:'Failed to send email'}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "path": "/api/v1/users/otp/verify/",
+          "methods": {
+            "POST": {
+              "handler": "users.otp_views.OTPVerificationViewSet.verify_otp",
+              "auth": "DRF default (not specified here)",
+              "serializers": ["users.serializers.OTPVerifySerializer", "users.serializers.UserSerializer"],
+              "steps": [
+                "Validate request with OTPVerifySerializer (contact, otp_code)",
+                "Lookup most recent OTPVerification for (contact case-insensitive, otp_code)",
+                "If not found => 400 Invalid OTP",
+                "If is_blocked and blocked_until in future => 429",
+                "If already verified => 200 'OTP already verified'",
+                "If expired (is_expired_property true) => mark is_expired and return 400 'OTP expired'",
+                "Mark OTP verified: set is_verified=true, verified_at=now, clear failed_attempts/is_blocked/blocked_until",
+                "Auto-register user if no User exists for email==contact: create with unique username + unusable password",
+                "Ensure UserProfile exists and has email",
+                "Return 200 {success:true,message:'OTP verified',created_user:<bool>,data:<UserSerializer>}"
+              ],
+              "side_effects": [
+                "Mutates OTPVerification state",
+                "May create User + UserProfile"
+              ],
+              "errors": [
+                {
+                  "status": 400,
+                  "when": "OTP not found",
+                  "response": "{success:false,message:'Invalid OTP'}"
+                },
+                {
+                  "status": 429,
+                  "when": "OTP temporarily blocked",
+                  "response": "{success:false,message:'OTP is temporarily blocked. Try later.'}"
+                },
+                {
+                  "status": 400,
+                  "when": "OTP expired",
+                  "response": "{success:false,message:'OTP expired'}"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+
+    "universities": {
+      "base_include": "/api/v1/universities/",
+      "endpoints": [
+        {
+          "path": "/api/v1/universities/universities/",
+          "methods": {
+            "GET": {
+              "handler": "universities.views.UniversityViewSet.list",
+              "auth": "not specified (DRF default)",
+              "serializers": ["universities.serializers.UniversitySerializer"],
+              "steps": [
+                "get_queryset filters is_active=True for list action",
+                "DRF list applies filters/search/ordering + pagination",
+                "Wrapped in try/except; on exception returns 500 {success:false,message:'Error retrieving universities'}"
+              ],
+              "side_effects": [],
+              "errors": [{"status": 500, "when": "unexpected exception"}]
+            },
+            "POST": {
+              "handler": "universities.views.UniversityViewSet.create",
+              "serializers": ["universities.serializers.UniversityCreateSerializer"],
+              "steps": [
+                "Use UniversityCreateSerializer",
+                "Call DRF create",
+                "Return 201 {success:true,data:<created>,message:'University created successfully'}",
+                "On error => 400 {success:false,message:'Error creating university'}"
+              ],
+              "side_effects": ["Creates University and related objects per serializer"],
+              "errors": [{"status": 400, "when": "exception during create"}]
+            }
+          },
+          "additional_router_endpoints": [
+            "/api/v1/universities/universities/{id}/ (GET, PUT, PATCH, DELETE)"
+          ]
+        },
+        {
+          "path": "/api/v1/universities/universities/{id}/",
+          "methods": {
+            "GET": {
+              "handler": "universities.views.UniversityViewSet.retrieve",
+              "serializers": ["universities.serializers.UniversitySerializer"],
+              "steps": [
+                "Load university object",
+                "Serialize and return {success:true,data:<university>,message:'University <name> retrieved successfully'}",
+                "On exception => 500 {success:false,message:'Error retrieving university'}"
+              ],
+              "side_effects": [],
+              "errors": [{"status": 500, "when": "unexpected exception"}]
+            },
+            "PUT": {"handler": "universities.views.UniversityViewSet.update", "serializers": ["universities.serializers.UniversityUpdateSerializer"]},
+            "PATCH": {"handler": "universities.views.UniversityViewSet.partial_update", "serializers": ["universities.serializers.UniversityUpdateSerializer"]},
+            "DELETE": {"handler": "universities.views.UniversityViewSet.destroy"}
+          }
+        },
+        {
+          "path": "/api/v1/universities/universities/{id}/gallery/",
+          "methods": {
+            "GET": {
+              "handler": "universities.views.UniversityViewSet.gallery",
+              "serializers": ["universities.serializers.UniversityGallerySerializer"],
+              "steps": [
+                "Get university",
+                "Try to access university.gallery (OneToOne/related)",
+                "If exists: serialize gallery and return {success:true,data:<gallery>,message:'Gallery for <name>'}",
+                "If missing: return {success:true,data:null,message:'No gallery found for <name>'}",
+                "On exception => 500"
+              ],
+              "side_effects": [],
+              "errors": [{"status": 500, "when": "unexpected exception"}]
+            }
+          }
+        },
+        {
+          "path": "/api/v1/universities/universities/search/",
+          "methods": {
+            "POST": {
+              "handler": "universities.views.UniversityViewSet.search",
+              "serializers": ["universities.serializers.UniversitySearchSerializer", "universities.serializers.UniversitySerializer"],
+              "steps": [
+                "Validate body with UniversitySearchSerializer",
+                "Start queryset University.objects.filter(is_active=True)",
+                "Apply text query across name/short_name/description/country/city",
+                "Apply filters: country, university_type",
+                "Apply ranking filters using rankings__rank range",
+                "If has_programs => filter programs not null",
+                "Apply status filters: is_featured, is_verified",
+                "Paginate if possible; otherwise return list",
+                "On exception => 500"
+              ],
+              "side_effects": [],
+              "errors": [{"status": 500, "when": "unexpected exception"}]
+            }
+          }
+        },
+        {
+          "path": "/api/v1/universities/universities/stats/",
+          "methods": {
+            "GET": {
+              "handler": "universities.views.UniversityViewSet.stats",
+              "serializers": ["universities.serializers.UniversitySerializer"],
+              "steps": [
+                "Compute counts: total, active, featured, verified",
+                "Aggregate universities_by_country and universities_by_type",
+                "Compute top_ranked_universities by min ranking",
+                "Get recent universities",
+                "Return {success:true,data:<stats>}"
+              ],
+              "side_effects": [],
+              "errors": [{"status": 500, "when": "unexpected exception"}]
+            }
+          }
+        },
+        {
+          "path": "/api/v1/universities/universities/compare/",
+          "methods": {
+            "POST": {
+              "handler": "universities.views.UniversityViewSet.compare",
+              "request": {"json": {"university_ids": "array of 2-5 IDs"}},
+              "steps": [
+                "Validate 2-5 IDs else 400",
+                "Fetch universities by ids; if any missing => 404",
+                "For each university, include rankings and programs comparisons",
+                "Return {success:true,data:{universities,comparison_data,ranking_comparison,program_comparison}}"
+              ],
+              "side_effects": [],
+              "errors": [
+                {"status": 400, "when": "<2 or >5 IDs"},
+                {"status": 404, "when": "some university IDs not found"},
+                {"status": 500, "when": "unexpected exception"}
+              ]
+            }
+          }
+        },
+        {
+          "path": "/api/v1/universities/universities/{id}/rankings/",
+          "methods": {
+            "GET": {
+              "handler": "universities.views.UniversityViewSet.rankings",
+              "steps": [
+                "Fetch university",
+                "Load related rankings ordered by -year, ranking_type",
+                "Serialize list and return success"
+              ],
+              "side_effects": [],
+              "errors": [{"status": 500, "when": "unexpected exception"}]
+            }
+          }
+        },
+        {
+          "path": "/api/v1/universities/universities/{id}/programs/",
+          "methods": {
+            "GET": {
+              "handler": "universities.views.UniversityViewSet.programs",
+              "steps": [
+                "Fetch university",
+                "Filter programs is_active=True ordered by level/name",
+                "Serialize list and return success"
+              ],
+              "side_effects": [],
+              "errors": [{"status": 500, "when": "unexpected exception"}]
+            }
+          }
+        },
+        {
+          "path": "/api/v1/universities/campuses/",
+          "methods": {
+            "GET": {"handler": "universities.views.CampusViewSet.list", "steps": ["List active campuses (action list filters is_active=True)"]},
+            "POST": {"handler": "universities.views.CampusViewSet.create", "serializers": ["universities.serializers.CampusCreateSerializer"]}
+          },
+          "additional_router_endpoints": ["/api/v1/universities/campuses/{id}/ (GET, PUT, PATCH, DELETE)"]
+        },
+        {
+          "path": "/api/v1/universities/rankings/",
+          "methods": {
+            "GET": {"handler": "universities.views.UniversityRankingViewSet.list"},
+            "POST": {"handler": "universities.views.UniversityRankingViewSet.create", "serializers": ["universities.serializers.UniversityRankingCreateSerializer"]}
+          },
+          "additional_router_endpoints": ["/api/v1/universities/rankings/{id}/ (GET, PUT, PATCH, DELETE)"]
+        },
+        {
+          "path": "/api/v1/universities/programs/",
+          "methods": {
+            "GET": {"handler": "universities.views.UniversityProgramViewSet.list", "steps": ["List active programs (filters is_active=True for list)"]},
+            "POST": {"handler": "universities.views.UniversityProgramViewSet.create", "serializers": ["universities.serializers.UniversityProgramCreateSerializer"]}
+          },
+          "additional_router_endpoints": ["/api/v1/universities/programs/{id}/ (GET, PUT, PATCH, DELETE)"]
+        },
+        {
+          "path": "/api/v1/universities/faculties/",
+          "methods": {
+            "GET": {"handler": "universities.views.UniversityFacultyViewSet.list", "steps": ["List active faculties (filters is_active=True for list)"]},
+            "POST": {"handler": "universities.views.UniversityFacultyViewSet.create", "serializers": ["universities.serializers.UniversityFacultyCreateSerializer"]}
+          },
+          "additional_router_endpoints": ["/api/v1/universities/faculties/{id}/ (GET, PUT, PATCH, DELETE)"]
+        },
+        {
+          "path": "/api/v1/universities/research/",
+          "methods": {
+            "GET": {"handler": "universities.views.UniversityResearchViewSet.list"},
+            "POST": {"handler": "universities.views.UniversityResearchViewSet.create", "serializers": ["universities.serializers.UniversityResearchCreateSerializer"]}
+          },
+          "additional_router_endpoints": ["/api/v1/universities/research/{id}/ (GET, PUT, PATCH, DELETE)"]
+        },
+        {
+          "path": "/api/v1/universities/partnerships/",
+          "methods": {
+            "GET": {"handler": "universities.views.UniversityPartnershipViewSet.list"},
+            "POST": {"handler": "universities.views.UniversityPartnershipViewSet.create", "serializers": ["universities.serializers.UniversityPartnershipCreateSerializer"]}
+          },
+          "additional_router_endpoints": ["/api/v1/universities/partnerships/{id}/ (GET, PUT, PATCH, DELETE)"]
+        },
+        {
+          "path": "/api/v1/universities/feeds/",
+          "methods": {
+            "GET": {"handler": "universities.views.FeedViewSet.list", "auth": "AllowAny"},
+            "POST": {"handler": "universities.views.FeedViewSet.create", "auth": "AllowAny"}
+          },
+          "additional_router_endpoints": ["/api/v1/universities/feeds/{id}/ (GET, PUT, PATCH, DELETE)"]
+        }
+      ]
+    },
+
+    "courses": {
+      "base_include": "/api/v1/courses/",
+      "endpoints": [
+        {
+          "path": "/api/v1/courses/courses/",
+          "methods": {
+            "GET": {
+              "handler": "courses.views.CourseViewSet.list",
+              "steps": [
+                "get_queryset filters status='active' for list",
+                "Optional extra filters: min_rating (Avg ratings), min_fee/max_fee",
+                "DRF list with pagination",
+                "On exception => 500 {success:false,message:'Error retrieving courses'}"
+              ],
+              "errors": [{"status": 500, "when": "unexpected exception"}]
+            },
+            "POST": {
+              "handler": "courses.views.CourseViewSet.create",
+              "serializers": ["courses.serializers.CourseCreateSerializer"],
+              "steps": [
+                "Create course via serializer",
+                "Return {success:true,data:<created>,message:'Course created successfully'}",
+                "On exception => 400"
+              ]
+            }
+          },
+          "additional_router_endpoints": ["/api/v1/courses/courses/{id}/ (GET, PUT, PATCH, DELETE)"]
+        },
+        {
+          "path": "/api/v1/courses/courses/{id}/",
+          "methods": {
+            "GET": {
+              "handler": "courses.views.CourseViewSet.retrieve",
+              "serializers": ["courses.serializers.CourseDetailSerializer"],
+              "steps": ["Return detailed course info; on exception return 500"]
+            }
+          }
+        },
+        {
+          "path": "/api/v1/courses/courses/search/",
+          "methods": {
+            "GET": {
+              "handler": "courses.views.CourseViewSet.search",
+              "serializers": ["courses.serializers.CourseSearchSerializer"],
+              "steps": [
+                "Validate query params with CourseSearchSerializer",
+                "Apply filters: q over name/description/university/subjects; featured_only; popular_only",
+                "Paginate results"
+              ]
+            }
+          }
+        },
+        {
+          "path": "/api/v1/courses/courses/filter/",
+          "methods": {
+            "POST": {
+              "handler": "courses.views.CourseViewSet.filter",
+              "serializers": ["courses.serializers.CourseFilterSerializer"],
+              "steps": [
+                "Validate body",
+                "Apply filters for universities/levels/durations/subjects/countries/fee_range/rating_min/status",
+                "Paginate and return results"
+              ]
+            }
+          }
+        },
+        {
+          "path": "/api/v1/courses/courses/{id}/apply/",
+          "methods": {
+            "POST": {
+              "handler": "courses.views.CourseViewSet.apply",
+              "auth": "requires request.user (serializer.save(user=request.user))",
+              "serializers": ["courses.serializers.CourseApplicationCreateSerializer", "courses.serializers.CourseApplicationSerializer"],
+              "steps": [
+                "Get course",
+                "Validate body with CourseApplicationCreateSerializer",
+                "Create CourseApplication via serializer.save(user=request.user, course=course)",
+                "Return 201 {success:true,data:<application>,message:'Application submitted successfully'}"
+              ],
+              "errors": [{"status": 400, "when": "exception during create"}]
+            }
+          }
+        },
+        {
+          "path": "/api/v1/courses/courses/{id}/rate/",
+          "methods": {
+            "POST": {
+              "handler": "courses.views.CourseViewSet.rate",
+              "auth": "requires request.user",
+              "serializers": ["courses.serializers.CourseRatingSerializer"],
+              "steps": [
+                "Get course",
+                "Validate body with CourseRatingSerializer",
+                "Update or create CourseRating for (user, course)",
+                "Return 201 if created else 200"
+              ],
+              "errors": [{"status": 400, "when": "exception"}]
+            }
+          }
+        },
+        {
+          "path": "/api/v1/courses/courses/stats/",
+          "methods": {
+            "GET": {
+              "handler": "courses.views.CourseViewSet.stats",
+              "steps": [
+                "Compute totals: courses, applications, avg rating, counts by level/duration",
+                "Compute top_courses by avg rating",
+                "Compute featured/popular courses",
+                "Return {success:true,data:<stats>}"
+              ],
+              "errors": [{"status": 500, "when": "unexpected exception"}]
+            }
+          }
+        },
+        {
+          "path": "/api/v1/courses/subjects/",
+          "methods": {
+            "GET": {"handler": "courses.views.SubjectViewSet.list"},
+            "POST": {"handler": "courses.views.SubjectViewSet.create"}
+          },
+          "additional_router_endpoints": ["/api/v1/courses/subjects/{id}/ (GET, PUT, PATCH, DELETE)"]
+        },
+        {
+          "path": "/api/v1/courses/applications/",
+          "methods": {
+            "GET": {
+              "handler": "courses.views.CourseApplicationViewSet.list",
+              "auth": "requires request.user",
+              "steps": ["List CourseApplication filtered by user=request.user"]
+            }
+          },
+          "additional_router_endpoints": ["/api/v1/courses/applications/{id}/ (GET)"]
+        }
+      ]
+    },
+
+    "applications": {
+      "base_include": "/api/v1/applications/",
+      "endpoints": [
+        {
+          "path": "/api/v1/applications/applications/",
+          "methods": {
+            "GET": {
+              "handler": "applications.views.ApplicationViewSet.list",
+              "serializers": ["applications.serializers.FrontendApplicationSerializer"],
+              "steps": [
+                "get_queryset currently returns ALL applications (comment: no auth required)",
+                "DRF list with filters/search/ordering + pagination",
+                "On exception => 500 {success:false,message:'Error retrieving applications',results:[],count:0}"
+              ]
+            },
+            "POST": {
+              "handler": "applications.views.ApplicationViewSet.create",
+              "serializers": ["applications.serializers.ApplicationCreateSerializer"],
+              "steps": [
+                "Create application via serializer",
+                "Return 201 {success:true,data:<created>,message:'Application created successfully'}",
+                "On exception => 400"
+              ]
+            }
+          },
+          "additional_router_endpoints": ["/api/v1/applications/applications/{id}/ (GET, PUT, PATCH, DELETE)"]
+        },
+        {
+          "path": "/api/v1/applications/applications/test-create/",
+          "methods": {
+            "POST": {
+              "handler": "applications.views.ApplicationViewSet.test_create",
+              "steps": [
+                "Get or create Django auth.User id=1 test user",
+                "Override request.user=test_user",
+                "Delegate to self.create(request)"
+              ],
+              "side_effects": ["May create test user", "Creates Application"],
+              "errors": [{"status": 400, "when": "exception"}]
+            }
+          }
+        },
+        {
+          "path": "/api/v1/applications/applications/simple-test/",
+          "methods": {
+            "POST": {
+              "handler": "applications.views.ApplicationViewSet.simple_test",
+              "steps": [
+                "Get or create test user id=1",
+                "Get or create test university id=1 (universities.University)",
+                "Get or create test program id=1 (universities.UniversityProgram)",
+                "Generate application_number APP-<8 hex>",
+                "Create Application directly with minimal required fields",
+                "Return 201 with minimal data"
+              ],
+              "side_effects": ["May create test user/university/program", "Creates Application"],
+              "errors": [{"status": 400, "when": "exception"}]
+            }
+          }
+        },
+        {
+          "path": "/api/v1/applications/applications/submit/",
+          "methods": {
+            "POST": {
+              "handler": "applications.views.ApplicationViewSet.submit",
+              "notes": [
+                "Implementation uses self.get_object() but action is declared detail=False; without a pk in the URL this may raise an error or always fail depending on router configuration."
+              ],
+              "steps": [
+                "Load application via self.get_object()",
+                "Require application.status == 'draft' else 400",
+                "Check required documents exist (documents.filter(is_required=True).exists()) else 400",
+                "Set status='submitted', submitted_at=now and save",
+                "Create ApplicationStatus row for status history",
+                "Return success"
+              ],
+              "side_effects": ["Mutates Application", "Creates ApplicationStatus"],
+              "errors": [
+                {"status": 400, "when": "status != draft"},
+                {"status": 400, "when": "required documents missing"},
+                {"status": 500, "when": "unexpected exception"}
+              ]
+            }
+          }
+        },
+        {
+          "path": "/api/v1/applications/applications/search/",
+          "methods": {
+            "POST": {
+              "handler": "applications.views.ApplicationViewSet.search",
+              "serializers": ["applications.serializers.ApplicationSearchSerializer"],
+              "steps": [
+                "Validate body",
+                "Filter queryset by status/priority/university/program/is_complete/is_verified/date_from/date_to",
+                "Paginate and return results",
+                "On exception => 500"
+              ]
+            }
+          }
+        },
+        {
+          "path": "/api/v1/applications/applications/stats/",
+          "methods": {
+            "GET": {
+              "handler": "applications.views.ApplicationViewSet.stats",
+              "steps": [
+                "Compute counts by status, by university, recent applications",
+                "Compute overdue applications (submitted/under_review older than 30 days)",
+                "Return {success:true,data:<stats>}"
+              ],
+              "errors": [{"status": 500, "when": "unexpected exception"}]
+            }
+          }
+        },
+        {
+          "path": "/api/v1/applications/applications/dashboard/",
+          "methods": {
+            "GET": {
+              "handler": "applications.views.ApplicationViewSet.dashboard",
+              "steps": [
+                "Build dashboard slices: last 5 applications, last 10 status updates, upcoming interviews, pending fees, recent communications",
+                "Return {success:true,data:<dashboard>}"
+              ],
+              "errors": [{"status": 500, "when": "unexpected exception"}]
+            }
+          }
+        },
+
+        {
+          "path": "/api/v1/applications/applications/{application_pk}/documents/",
+          "methods": {
+            "GET": {"handler": "applications.views.ApplicationDocumentViewSet.list", "auth": "filters by application__user=request.user"},
+            "POST": {
+              "handler": "applications.views.ApplicationDocumentViewSet.create",
+              "steps": [
+                "Resolve application from URL kwarg application_pk and user=request.user",
+                "serializer.save(application=<application>)"
+              ]
+            }
+          }
+        },
+        {
+          "path": "/api/v1/applications/applications/{application_pk}/status/",
+          "methods": {
+            "GET": {"handler": "applications.views.ApplicationStatusViewSet.list", "auth": "filters by application__user=request.user"},
+            "POST": {"handler": "applications.views.ApplicationStatusViewSet.create", "steps": ["Attach application via application_pk and changed_by per serializer"]}
+          }
+        },
+        {
+          "path": "/api/v1/applications/applications/{application_pk}/interviews/",
+          "methods": {
+            "GET": {"handler": "applications.views.ApplicationInterviewViewSet.list", "auth": "filters by application__user=request.user"},
+            "POST": {"handler": "applications.views.ApplicationInterviewViewSet.create", "steps": ["Attach application via application_pk"]}
+          }
+        },
+        {
+          "path": "/api/v1/applications/applications/{application_pk}/fees/",
+          "methods": {
+            "GET": {"handler": "applications.views.ApplicationFeeViewSet.list", "auth": "filters by application__user=request.user"},
+            "POST": {"handler": "applications.views.ApplicationFeeViewSet.create", "steps": ["Attach application via application_pk"]}
+          }
+        },
+        {
+          "path": "/api/v1/applications/applications/{application_pk}/communications/",
+          "methods": {
+            "GET": {"handler": "applications.views.ApplicationCommunicationViewSet.list", "auth": "filters by application__user=request.user"},
+            "POST": {"handler": "applications.views.ApplicationCommunicationViewSet.create"}
+          }
+        }
+      ]
+    },
+
+    "payments": {
+      "base_include": "/api/v1/payments/",
+      "notes": [
+        "payments.urls nests everything under 'api/payments/'. Effective endpoints are /api/v1/payments/api/payments/..."
+      ],
+      "endpoints": [
+        {
+          "path": "/api/v1/payments/api/payments/payment-methods/",
+          "methods": {
+            "GET": {
+              "handler": "payments.views.PaymentMethodViewSet.list",
+              "auth": "filters by user=self.request.user",
+              "steps": ["List PaymentMethod objects belonging to request.user"],
+              "errors": []
+            },
+            "POST": {
+              "handler": "payments.views.PaymentMethodViewSet.create",
+              "serializers": ["payments.serializers.PaymentMethodCreateSerializer"],
+              "steps": ["Create PaymentMethod for request.user via serializer"],
+              "errors": []
+            }
+          }
+        },
+        {
+          "path": "/api/v1/payments/api/payments/payment-methods/{uuid}/set_default/",
+          "alias_paths": [
+            "/api/v1/payments/api/payments/payment-methods/{uuid}/set-default/ (explicit)"
+          ],
+          "methods": {
+            "POST": {
+              "handler": "payments.views.PaymentMethodViewSet.set_default",
+              "steps": [
+                "Get payment method",
+                "Unset is_default on other methods for user",
+                "Set current is_default=True and save",
+                "Return serialized payment method"
+              ]
+            }
+          }
+        },
+        {
+          "path": "/api/v1/payments/api/payments/payment-methods/{uuid}/activate/",
+          "methods": {"POST": {"handler": "payments.views.PaymentMethodViewSet.activate", "steps": ["Set is_active=True and save"]}}
+        },
+        {
+          "path": "/api/v1/payments/api/payments/payment-methods/{uuid}/deactivate/",
+          "methods": {"POST": {"handler": "payments.views.PaymentMethodViewSet.deactivate", "steps": ["Set is_active=False and save"]}}
+        },
+        {
+          "path": "/api/v1/payments/api/payments/payment-methods/defaults/",
+          "methods": {"GET": {"handler": "payments.views.PaymentMethodViewSet.defaults", "steps": ["List active default methods for user"]}}
+        },
+        {
+          "path": "/api/v1/payments/api/payments/payment-methods/stats/",
+          "methods": {"GET": {"handler": "payments.views.PaymentMethodViewSet.stats", "steps": ["Return counts and group-by payment_type"]}}
+        },
+
+        {
+          "path": "/api/v1/payments/api/payments/transactions/",
+          "methods": {
+            "GET": {"handler": "payments.views.PaymentTransactionViewSet.list", "steps": ["List user transactions"]},
+            "POST": {"handler": "payments.views.PaymentTransactionViewSet.create", "serializers": ["payments.serializers.PaymentTransactionCreateSerializer"]}
+          }
+        },
+        {
+          "path": "/api/v1/payments/api/payments/transactions/{uuid}/process_payment/",
+          "alias_paths": ["/api/v1/payments/api/payments/transactions/{uuid}/process/ (explicit)"],
+          "methods": {
+            "POST": {
+              "handler": "payments.views.PaymentTransactionViewSet.process_payment",
+              "steps": [
+                "Require transaction.status == 'pending' else 400",
+                "Set status='processing' and save",
+                "Create PaymentLog info 'Payment processing started'",
+                "Simulate success: set status='completed', set processed_at/completed_at=now",
+                "Create PaymentLog info 'Payment completed successfully'",
+                "Return serialized transaction",
+                "On exception: set status='failed', create error PaymentLog, return 500"
+              ],
+              "errors": [
+                {"status": 400, "when": "status not pending"},
+                {"status": 500, "when": "exception during processing"}
+              ]
+            }
+          }
+        },
+        {
+          "path": "/api/v1/payments/api/payments/transactions/{uuid}/cancel_transaction/",
+          "alias_paths": ["/api/v1/payments/api/payments/transactions/{uuid}/cancel/ (explicit)"],
+          "methods": {
+            "POST": {
+              "handler": "payments.views.PaymentTransactionViewSet.cancel_transaction",
+              "steps": [
+                "Require status in ['pending','processing'] else 400",
+                "Set status='cancelled' and save",
+                "Create PaymentLog info 'Transaction cancelled by user'",
+                "Return serialized transaction"
+              ]
+            }
+          }
+        },
+        {
+          "path": "/api/v1/payments/api/payments/transactions/{uuid}/request_refund/",
+          "alias_paths": ["/api/v1/payments/api/payments/transactions/{uuid}/request-refund/ (explicit)"],
+          "methods": {
+            "POST": {
+              "handler": "payments.views.PaymentTransactionViewSet.request_refund",
+              "steps": [
+                "Require transaction.is_refundable else 400",
+                "Read amount (default transaction.amount), reason, notes",
+                "If amount > transaction.amount => 400",
+                "Create Refund(transaction, user, amount, currency, reason, notes)",
+                "Return 201 with RefundSerializer"
+              ],
+              "errors": [
+                {"status": 400, "when": "not refundable"},
+                {"status": 400, "when": "amount exceeds transaction"}
+              ]
+            }
+          }
+        },
+        {
+          "path": "/api/v1/payments/api/payments/transactions/stats/",
+          "methods": {"GET": {"handler": "payments.views.PaymentTransactionViewSet.stats", "steps": ["Aggregate over last N days (default 30)"]}}
+        },
+        {
+          "path": "/api/v1/payments/api/payments/transactions/recent/",
+          "methods": {"GET": {"handler": "payments.views.PaymentTransactionViewSet.recent", "steps": ["Return last N (default 10)"]}}
+        },
+
+        {
+          "path": "/api/v1/payments/api/payments/subscriptions/",
+          "methods": {
+            "GET": {"handler": "payments.views.SubscriptionViewSet.list"},
+            "POST": {"handler": "payments.views.SubscriptionViewSet.create", "serializers": ["payments.serializers.SubscriptionCreateSerializer"]}
+          }
+        },
+        {
+          "path": "/api/v1/payments/api/payments/subscriptions/{uuid}/cancel_subscription/",
+          "alias_paths": ["/api/v1/payments/api/payments/subscriptions/{uuid}/cancel/ (explicit)"],
+          "methods": {"POST": {"handler": "payments.views.SubscriptionViewSet.cancel_subscription", "steps": ["Require status in ['active','trial']; set cancelled+auto_renew=false"]}}
+        },
+        {
+          "path": "/api/v1/payments/api/payments/subscriptions/{uuid}/renew_subscription/",
+          "alias_paths": ["/api/v1/payments/api/payments/subscriptions/{uuid}/renew/ (explicit)"],
+          "methods": {"POST": {"handler": "payments.views.SubscriptionViewSet.renew_subscription", "steps": ["Require status=='cancelled'; set active+auto_renew=true"]}}
+        },
+        {
+          "path": "/api/v1/payments/api/payments/subscriptions/{uuid}/change_payment_method/",
+          "alias_paths": ["/api/v1/payments/api/payments/subscriptions/{uuid}/change-payment-method/ (explicit)"],
+          "methods": {
+            "POST": {
+              "handler": "payments.views.SubscriptionViewSet.change_payment_method",
+              "steps": [
+                "Require payment_method_id present else 400",
+                "Fetch PaymentMethod(id=payment_method_id,user=request.user) else 404",
+                "Set subscription.payment_method and save",
+                "Return serialized subscription"
+              ],
+              "errors": [
+                {"status": 400, "when": "missing payment_method_id"},
+                {"status": 404, "when": "payment method not found"}
+              ]
+            }
+          }
+        },
+        {
+          "path": "/api/v1/payments/api/payments/subscriptions/active/",
+          "methods": {"GET": {"handler": "payments.views.SubscriptionViewSet.active", "steps": ["List active subscriptions"]}}
+        },
+        {
+          "path": "/api/v1/payments/api/payments/subscriptions/expiring_soon/",
+          "alias_paths": ["/api/v1/payments/api/payments/subscriptions/expiring-soon/ (explicit)"],
+          "methods": {"GET": {"handler": "payments.views.SubscriptionViewSet.expiring_soon", "steps": ["Filter end_date <= now+days"]}}
+        },
+        {
+          "path": "/api/v1/payments/api/payments/subscriptions/stats/",
+          "methods": {"GET": {"handler": "payments.views.SubscriptionViewSet.stats"}}
+        },
+
+        {
+          "path": "/api/v1/payments/api/payments/invoices/",
+          "methods": {"GET": {"handler": "payments.views.InvoiceViewSet.list"}, "POST": {"handler": "payments.views.InvoiceViewSet.create"}}
+        },
+        {
+          "path": "/api/v1/payments/api/payments/invoices/{uuid}/mark_as_paid/",
+          "alias_paths": ["/api/v1/payments/api/payments/invoices/{uuid}/mark-paid/ (explicit)"],
+          "methods": {"POST": {"handler": "payments.views.InvoiceViewSet.mark_as_paid", "steps": ["Reject if already paid; else set paid status and paid_date"]}}
+        },
+        {
+          "path": "/api/v1/payments/api/payments/invoices/{uuid}/download_pdf/",
+          "alias_paths": ["/api/v1/payments/api/payments/invoices/{uuid}/download-pdf/ (explicit)"],
+          "methods": {"GET": {"handler": "payments.views.InvoiceViewSet.download_pdf", "steps": ["Placeholder response (no real PDF generation)"]}}
+        },
+        {
+          "path": "/api/v1/payments/api/payments/invoices/overdue/",
+          "methods": {"GET": {"handler": "payments.views.InvoiceViewSet.overdue", "steps": ["Filter status in ['sent','draft'] and due_date < now"]}}
+        },
+        {
+          "path": "/api/v1/payments/api/payments/invoices/stats/",
+          "methods": {"GET": {"handler": "payments.views.InvoiceViewSet.stats"}}
+        },
+
+        {
+          "path": "/api/v1/payments/api/payments/refunds/",
+          "methods": {"GET": {"handler": "payments.views.RefundViewSet.list"}, "POST": {"handler": "payments.views.RefundViewSet.create"}}
+        },
+        {
+          "path": "/api/v1/payments/api/payments/refunds/{uuid}/process_refund/",
+          "alias_paths": ["/api/v1/payments/api/payments/refunds/{uuid}/process/ (explicit)"],
+          "methods": {"POST": {"handler": "payments.views.RefundViewSet.process_refund", "steps": ["Require pending; simulate processing; update transaction to refunded/partially_refunded"], "errors": [{"status": 400, "when": "not pending"}, {"status": 500, "when": "exception"}]}}
+        },
+        {
+          "path": "/api/v1/payments/api/payments/refunds/stats/",
+          "methods": {"GET": {"handler": "payments.views.RefundViewSet.stats"}}
+        },
+
+        {
+          "path": "/api/v1/payments/api/payments/gateways/",
+          "methods": {"GET": {"handler": "payments.views.PaymentGatewayViewSet.list", "steps": ["List active gateways"]}}
+        },
+        {
+          "path": "/api/v1/payments/api/payments/gateways/supported_methods/",
+          "alias_paths": ["/api/v1/payments/api/payments/gateways/supported-methods/ (explicit)"],
+          "methods": {"GET": {"handler": "payments.views.PaymentGatewayViewSet.supported_methods", "steps": ["Return mapping gateway_type -> supported currencies/methods/fees"]}}
+        },
+
+        {
+          "path": "/api/v1/payments/api/payments/logs/",
+          "methods": {"GET": {"handler": "payments.views.PaymentLogViewSet.list", "steps": ["List logs for request.user transactions"]}}
+        },
+        {
+          "path": "/api/v1/payments/api/payments/logs/errors/",
+          "methods": {"GET": {"handler": "payments.views.PaymentLogViewSet.errors", "steps": ["Filter level in ['error','critical']"]}}
+        },
+
+        {
+          "path": "/api/v1/payments/api/payments/stats/overview/",
+          "methods": {"GET": {"handler": "payments.views.PaymentStatsViewSet.overview", "steps": ["Aggregate transactions/subscriptions/payment_methods for last N days"]}}
+        },
+        {
+          "path": "/api/v1/payments/api/payments/stats/trends/",
+          "methods": {"GET": {"handler": "payments.views.PaymentStatsViewSet.trends", "steps": ["Return daily transaction totals + subscription counts using DATE(created_at) grouping"]}}
+        }
+      ]
+    },
+
+    "quizzes": {
+      "base_include": "/api/v1/quizzes/",
+      "endpoints": [
+        {
+          "path": "/api/v1/quizzes/quizzes/",
+          "methods": {
+            "GET": {"handler": "quizzes.views.QuizViewSet.list", "serializers": ["quizzes.serializers.QuizListSerializer"]},
+            "POST": {"handler": "quizzes.views.QuizViewSet.create", "serializers": ["quizzes.serializers.QuizCreateSerializer"], "steps": ["serializer.save(creator=request.user)"]}
+          },
+          "additional_router_endpoints": ["/api/v1/quizzes/quizzes/{id}/ (GET, PUT, PATCH, DELETE)"]
+        },
+        {
+          "path": "/api/v1/quizzes/quizzes/{id}/start/",
+          "methods": {
+            "POST": {
+              "handler": "quizzes.views.QuizViewSet.start_quiz",
+              "steps": [
+                "Reject if quiz.is_active is false => 400",
+                "Count existing attempts for (quiz,user); if >= quiz.max_attempts => 400",
+                "Create QuizAttempt(status='in_progress')",
+                "If quiz.time_limit>0 create QuizTimer(time_limit seconds, time_remaining seconds)",
+                "Create QuizAnalytics(action_type='start', ip/user_agent)",
+                "Return 201 QuizAttemptSerializer"
+              ],
+              "errors": [
+                {"status": 400, "when": "quiz not active"},
+                {"status": 400, "when": "max attempts reached"}
+              ]
+            }
+          }
+        },
+        {
+          "path": "/api/v1/quizzes/quizzes/{id}/submit/",
+          "methods": {
+            "POST": {
+              "handler": "quizzes.views.QuizViewSet.submit_quiz",
+              "request": {"json": {"answers": "map question_id -> selected option(s)/value"}},
+              "steps": [
+                "Find QuizAttempt for (quiz,user,status='in_progress'); if none => 400",
+                "Iterate questions; compute total_points, earned_points, questions_attempted, questions_correct",
+                "Determine correctness by question_type:",
+                "- multiple_choice: compare selected option ids to correct options",
+                "- true_false: compare text",
+                "- else: text compare",
+                "Create QuizResult per question attempted",
+                "Compute percentage and passed (>= quiz.passing_score)",
+                "Update attempt fields and mark status='completed'",
+                "Update quiz.total_attempts and quiz.average_score",
+                "Create QuizAnalytics(action_type='complete')",
+                "Return QuizAttemptSerializer"
+              ],
+              "errors": [{"status": 400, "when": "no active attempt found"}]
+            }
+          }
+        },
+        {
+          "path": "/api/v1/quizzes/quizzes/{id}/results/",
+          "methods": {"GET": {"handler": "quizzes.views.QuizViewSet.results", "steps": ["List completed attempts for user ordered by -completed_at"]}}
+        },
+        {
+          "path": "/api/v1/quizzes/quizzes/{id}/leaderboard/",
+          "methods": {"GET": {"handler": "quizzes.views.QuizViewSet.leaderboard", "steps": ["Top 10 completed attempts by percentage then time_taken"]}}
+        },
+        {
+          "path": "/api/v1/quizzes/quizzes/search/",
+          "methods": {"GET": {"handler": "quizzes.views.QuizViewSet.search", "steps": ["Validate with QuizSearchSerializer; filter; paginate"]}}
+        },
+        {
+          "path": "/api/v1/quizzes/quizzes/statistics/",
+          "methods": {"GET": {"handler": "quizzes.views.QuizViewSet.statistics", "steps": ["Aggregate overall and per-category stats"]}}
+        },
+        {
+          "path": "/api/v1/quizzes/quizzes/featured/",
+          "methods": {"GET": {"handler": "quizzes.views.QuizViewSet.featured", "steps": ["Filter is_featured=True"]}}
+        },
+        {
+          "path": "/api/v1/quizzes/quizzes/recent/",
+          "methods": {"GET": {"handler": "quizzes.views.QuizViewSet.recent", "steps": ["Order by -created_at limit 10"]}}
+        },
+        {
+          "path": "/api/v1/quizzes/quizzes/popular/",
+          "methods": {"GET": {"handler": "quizzes.views.QuizViewSet.popular", "steps": ["Order by -total_attempts limit 10"]}}
+        },
+        {
+          "path": "/api/v1/quizzes/quizzes/{id}/share/",
+          "methods": {"POST": {"handler": "quizzes.views.QuizViewSet.share", "steps": ["Validate QuizShareCreateSerializer; save share; create analytics share; return message"]}}
+        },
+        {
+          "path": "/api/v1/quizzes/quizzes/bulk-action/",
+          "methods": {
+            "POST": {
+              "handler": "quizzes.views.QuizViewSet.bulk_action",
+              "steps": [
+                "Validate QuizBulkActionSerializer (quiz_ids, action)",
+                "Filter quizzes by ids and creator=request.user",
+                "Perform action: publish/archive/delete/feature/unfeature",
+                "Return message with count"
+              ]
+            }
+          }
+        },
+
+        {
+          "path": "/api/v1/quizzes/categories/",
+          "methods": {"GET": {"handler": "quizzes.views.QuizCategoryViewSet.list"}, "POST": {"handler": "quizzes.views.QuizCategoryViewSet.create"}},
+          "additional_router_endpoints": ["/api/v1/quizzes/categories/{id}/ (GET, PUT, PATCH, DELETE)"]
+        },
+        {
+          "path": "/api/v1/quizzes/categories/{id}/quizzes/",
+          "methods": {"GET": {"handler": "quizzes.views.QuizCategoryViewSet.quizzes", "steps": ["List active quizzes in category with pagination"]}}
+        },
+        {
+          "path": "/api/v1/quizzes/categories/{id}/statistics/",
+          "methods": {"GET": {"handler": "quizzes.views.QuizCategoryViewSet.statistics", "steps": ["Compute totals/averages from quizzes in category"]}}
+        },
+        {
+          "path": "/api/v1/quizzes/categories/reorder/",
+          "methods": {"POST": {"handler": "quizzes.views.QuizCategoryViewSet.reorder", "steps": ["Update order field per provided category_ids list"]}}
+        },
+
+        {
+          "path": "/api/v1/quizzes/questions/",
+          "methods": {"GET": {"handler": "quizzes.views.QuestionViewSet.list"}, "POST": {"handler": "quizzes.views.QuestionViewSet.create"}},
+          "additional_router_endpoints": ["/api/v1/quizzes/questions/{id}/ (GET, PUT, PATCH, DELETE)"]
+        },
+        {
+          "path": "/api/v1/quizzes/options/",
+          "methods": {"GET": {"handler": "quizzes.views.OptionViewSet.list"}, "POST": {"handler": "quizzes.views.OptionViewSet.create"}},
+          "additional_router_endpoints": ["/api/v1/quizzes/options/{id}/ (GET, PUT, PATCH, DELETE)"]
+        },
+
+        {
+          "path": "/api/v1/quizzes/attempts/",
+          "methods": {"GET": {"handler": "quizzes.views.QuizAttemptViewSet.list"}},
+          "additional_router_endpoints": ["/api/v1/quizzes/attempts/{uuid}/ (GET)"]
+        },
+        {
+          "path": "/api/v1/quizzes/attempts/{uuid}/results/",
+          "methods": {"GET": {"handler": "quizzes.views.QuizAttemptViewSet.results", "steps": ["Return QuizResult rows for attempt"]}}
+        },
+
+        {
+          "path": "/api/v1/quizzes/analytics/",
+          "methods": {"GET": {"handler": "quizzes.views.QuizAnalyticsViewSet.list"}}
+        },
+        {
+          "path": "/api/v1/quizzes/shares/",
+          "methods": {"GET": {"handler": "quizzes.views.QuizShareViewSet.list"}}
+        },
+        {
+          "path": "/api/v1/quizzes/timers/",
+          "methods": {"GET": {"handler": "quizzes.views.QuizTimerViewSet.list"}},
+          "additional_router_endpoints": ["/api/v1/quizzes/timers/{id}/ (GET)"]
+        },
+        {
+          "path": "/api/v1/quizzes/timers/{id}/pause/",
+          "methods": {"POST": {"handler": "quizzes.views.QuizTimerViewSet.pause", "steps": ["Call timer.pause(); return updated timer"]}}
+        },
+        {
+          "path": "/api/v1/quizzes/timers/{id}/resume/",
+          "methods": {"POST": {"handler": "quizzes.views.QuizTimerViewSet.resume", "steps": ["Call timer.resume(); return updated timer"]}}
+        }
+      ]
+    },
+
+    "content": {
+      "base_include": "/api/v1/content/",
+      "endpoints": [
+        {
+          "path": "/api/v1/content/contents/",
+          "methods": {
+            "GET": {"handler": "content.views.ContentViewSet.list", "serializers": ["content.serializers.ContentListSerializer"]},
+            "POST": {"handler": "content.views.ContentViewSet.create", "serializers": ["content.serializers.ContentCreateSerializer"], "steps": ["serializer.save(author=request.user)"]}
+          },
+          "additional_router_endpoints": ["/api/v1/content/contents/{id}/ (GET, PUT, PATCH, DELETE)"]
+        },
+        {
+          "path": "/api/v1/content/contents/{id}/view/",
+          "methods": {
+            "POST": {
+              "handler": "content.views.ContentViewSet.view",
+              "steps": [
+                "Create ContentView row with ip/user_agent/referrer/session_id (user optional)",
+                "Increment content.view_count and save",
+                "Create ContentAnalytics(action_type='view')",
+                "Return 201 ContentViewSerializer(view)"
+              ]
+            }
+          }
+        },
+        {
+          "path": "/api/v1/content/contents/{id}/rate/",
+          "methods": {
+            "POST": {
+              "handler": "content.views.ContentViewSet.rate",
+              "steps": [
+                "Validate ContentRatingCreateSerializer",
+                "If existing rating by user: update; else create",
+                "Create ContentAnalytics(action_type='rate', metadata includes rating)",
+                "Return success message"
+              ]
+            }
+          }
+        },
+        {
+          "path": "/api/v1/content/contents/{id}/comment/",
+          "methods": {"POST": {"handler": "content.views.ContentViewSet.comment", "steps": ["Validate ContentCommentCreateSerializer; create comment; analytics action_type='comment'"]}}
+        },
+        {
+          "path": "/api/v1/content/contents/{id}/share/",
+          "methods": {"POST": {"handler": "content.views.ContentViewSet.share", "steps": ["Validate ContentShareCreateSerializer; create share; increment share_count; analytics"]}}
+        },
+        {
+          "path": "/api/v1/content/contents/{id}/download/",
+          "methods": {"POST": {"handler": "content.views.ContentViewSet.download", "steps": ["Validate ContentDownloadCreateSerializer; create download; increment download_count; analytics"]}}
+        },
+        {
+          "path": "/api/v1/content/contents/{id}/bookmark/",
+          "methods": {"POST": {"handler": "content.views.ContentViewSet.bookmark", "steps": ["Validate ContentBookmarkCreateSerializer; create bookmark; analytics"]}}
+        },
+        {
+          "path": "/api/v1/content/contents/{id}/comments/",
+          "methods": {"GET": {"handler": "content.views.ContentViewSet.comments", "steps": ["List approved root comments with pagination"]}}
+        },
+        {
+          "path": "/api/v1/content/contents/{id}/ratings/",
+          "methods": {"GET": {"handler": "content.views.ContentViewSet.ratings", "steps": ["List ratings with pagination"]}}
+        },
+
+        {
+          "path": "/api/v1/content/contents/search/",
+          "methods": {"GET": {"handler": "content.views.ContentViewSet.search", "steps": ["Validate ContentSearchSerializer; filter; paginate"]}}
+        },
+        {
+          "path": "/api/v1/content/contents/statistics/",
+          "methods": {"GET": {"handler": "content.views.ContentViewSet.statistics", "steps": ["Aggregate overall + per-category stats"]}}
+        },
+        {
+          "path": "/api/v1/content/contents/featured/",
+          "methods": {"GET": {"handler": "content.views.ContentViewSet.featured"}}
+        },
+        {
+          "path": "/api/v1/content/contents/recent/",
+          "methods": {"GET": {"handler": "content.views.ContentViewSet.recent"}}
+        },
+        {
+          "path": "/api/v1/content/contents/popular/",
+          "methods": {"GET": {"handler": "content.views.ContentViewSet.popular"}}
+        },
+        {
+          "path": "/api/v1/content/contents/bulk-action/",
+          "methods": {
+            "POST": {
+              "handler": "content.views.ContentViewSet.bulk_action",
+              "steps": [
+                "Validate ContentBulkActionSerializer (content_ids, action)",
+                "Filter contents by ids and author=request.user",
+                "Apply action: publish/archive/delete/feature/unfeature/make_public/make_private",
+                "Return message with count"
+              ]
+            }
+          }
+        },
+
+        {
+          "path": "/api/v1/content/categories/",
+          "methods": {"GET": {"handler": "content.views.ContentCategoryViewSet.list"}, "POST": {"handler": "content.views.ContentCategoryViewSet.create"}},
+          "additional_router_endpoints": ["/api/v1/content/categories/{id}/ (GET, PUT, PATCH, DELETE)"]
+        },
+        {
+          "path": "/api/v1/content/categories/{id}/contents/",
+          "methods": {"GET": {"handler": "content.views.ContentCategoryViewSet.contents", "steps": ["List published/active contents in category with pagination"]}}
+        },
+        {
+          "path": "/api/v1/content/categories/{id}/statistics/",
+          "methods": {"GET": {"handler": "content.views.ContentCategoryViewSet.statistics", "steps": ["Aggregate counts for category"]}}
+        },
+
+        {
+          "path": "/api/v1/content/tags/",
+          "methods": {"GET": {"handler": "content.views.ContentTagViewSet.list"}, "POST": {"handler": "content.views.ContentTagViewSet.create"}},
+          "additional_router_endpoints": ["/api/v1/content/tags/{id}/ (GET, PUT, PATCH, DELETE)"]
+        },
+        {
+          "path": "/api/v1/content/tags/{id}/contents/",
+          "methods": {"GET": {"handler": "content.views.ContentTagViewSet.contents", "steps": ["List active contents for tag with pagination"]}}
+        },
+
+        {
+          "path": "/api/v1/content/ratings/",
+          "methods": {"GET": {"handler": "content.views.ContentRatingViewSet.list", "auth": "filters by user=request.user"}}
+        },
+        {
+          "path": "/api/v1/content/comments/",
+          "methods": {"GET": {"handler": "content.views.ContentCommentViewSet.list", "auth": "filters by user=request.user"}}
+        },
+        {
+          "path": "/api/v1/content/shares/",
+          "methods": {"GET": {"handler": "content.views.ContentShareViewSet.list", "auth": "filters by shared_by=request.user"}}
+        },
+        {
+          "path": "/api/v1/content/downloads/",
+          "methods": {"GET": {"handler": "content.views.ContentDownloadViewSet.list", "auth": "filters by user=request.user"}}
+        },
+        {
+          "path": "/api/v1/content/bookmarks/",
+          "methods": {"GET": {"handler": "content.views.ContentBookmarkViewSet.list", "auth": "filters by user=request.user"}}
+        },
+        {
+          "path": "/api/v1/content/analytics/",
+          "methods": {"GET": {"handler": "content.views.ContentAnalyticsViewSet.list", "auth": "filters by content__author=request.user"}}
+        },
+
+        {
+          "path": "/api/v1/content/feeds/",
+          "methods": {"GET": {"handler": "content.views.FeedListAPIView.get", "steps": ["List Feed ordered by -date_posted"]}}
+        }
+      ]
+    }
+  }
+}

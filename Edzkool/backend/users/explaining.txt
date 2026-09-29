@@ -1,0 +1,225 @@
+Explaining the classes and functions in `project/users/views.py`
+
+This document explains, in plain English, each class defined in
+`views.py`, why it exists, and what the main functions inside each class
+do. After reading this you can decide which classes or functions you
+want to keep or remove.
+
+1) UserPagination
+------------------
+- Purpose: a small helper class that centralizes pagination settings for
+  user-related API list endpoints.
+- Why it exists: Django REST Framework lets you customize pagination
+  behaviour. This class sets sensible defaults (page size, query
+  parameter name and max page size) so all user list endpoints behave the
+  same.
+- Key attributes/functions:
+  - `page_size`: default number of items per page (25).
+  - `page_size_query_param`: name of the URL query param to change page
+    size.
+  - `max_page_size`: safety cap so clients can't ask for enormous pages.
+- Keep or remove: Keep if you want consistent user-list paging. Remove
+  only if you don't need custom paging or want to centralize pagination
+  elsewhere.
+
+2) UserViewSet
+---------------
+- Purpose: main API surface for user account CRUD (create/read/update/
+  delete) and some user-related actions (login, logout, password
+  reset, stats).
+- Why it exists: this ViewSet exposes endpoints for managing users and
+  related operations. It uses Django REST Framework's ModelViewSet so
+  standard operations are implemented with minimal code, and custom
+  endpoints are added via `@action` decorated methods.
+- Important methods and what they do:
+  - `queryset` and `serializer_class`: standard DRF attributes that
+    define which users to operate on and which serializer to use.
+  - `get_serializer_class()`: returns different serializers depending on
+    whether we're creating, updating, or returning users. This ensures
+    the right validation rules and fields are used.
+  - `get_queryset()`: central place to optionally filter the user
+    listing (for example, showing only active users for the list
+    action).
+  - `list()`: custom list implementation which logs counts and returns
+    paginated results. Useful for debugging and adding custom
+    behavior on listing.
+  - `get_user_by_email` (custom action, GET /users/by-email/):
+    - Purpose: return a single user by email. This is used by the
+      frontend when it only knows an email and needs user details.
+    - Behavior: requires `email` query param; returns 400 if missing,
+      404 if not found, otherwise returns serialized user data.
+  - `login` (custom action, POST /users/login/):
+    - Authenticates user credentials, creates a session record, logs
+      activity, and returns JWT tokens (access + refresh) and session
+      info. It centralizes session creation and token issuance.
+  - `logout` (custom action, POST /users/logout/):
+    - Terminates a session by `session_key` and `device_id` and records
+      activity.
+  - `change_password`, `reset_password_request`, `reset_password_confirm`:
+    - Helpers to manage password changes and password reset via OTPs.
+    - They validate input, modify the user object, and record activity.
+  - `stats` (GET /users/stats/):
+    - Returns simple aggregated data about users: counts and recent
+      activities. Useful for admin dashboards.
+  - `get_client_ip()`: small helper extracting the client IP address.
+
+- Keep or remove: Keep this class if you need full user management and
+  the custom actions. If your app uses a simpler auth flow or a
+  separate auth microservice, you could remove some actions (e.g.
+  `login`/`logout`) and keep only the user listing/detail endpoints.
+
+3) UserProfileViewSet
+----------------------
+- Purpose: manage user profile records (profile details, profile
+  picture, cover photo, preferences, etc.). This is distinct from the
+  `User` model and typically contains user metadata.
+- Why it exists: keeping user account data (email/username/password)
+  separate from profile data (bio, avatar, settings) is a common
+  pattern. This ViewSet provides CRUD for the `UserProfile` model and
+  special handling for picture uploads.
+- Important methods and what they do:
+  - `queryset` and `serializer_class`: standard DRF wiring to the
+    profile model and its serializers.
+  - `get_serializer_class()`:
+    - Chooses a different serializer when the request appears to be a
+      picture-only upload (only `profile_picture`/`cover_photo` fields)
+      so the payload is validated using a smaller serializer.
+  - `get_queryset()`:
+    - This implementation enforces email-based lookups: it requires an
+      `email` value in the query string or request data, looks up the
+      `User` by that email, and restricts the queryset to that user's
+      profiles. It raises a `ParseError` if no email is supplied, and
+      `NotFound` if the email doesn't match any user.
+    - Why this matters: the frontend was changed to provide `email`
+      instead of relying on request authentication; this method
+      prevents accidental updates to the wrong profile.
+  - `get_object()`:
+    - Returns (or creates) the `UserProfile` associated with the
+      provided `email`. This is used when the client requests a single
+      profile resource (e.g., GET /profiles/1/?email=xyz).
+  - `list()`:
+    - Wraps the parent list method and logs/debugs. Useful in
+      development to understand what profiles are returned.
+  - `update()` and `partial_update()`:
+    - Both require an `email` in the request data or query params,
+      identify the `User` by that email, retrieve the corresponding
+      `UserProfile`, validate incoming data with the right serializer,
+      and save changes. They return 400/404 appropriately for missing
+      or invalid email/user.
+
+- Keep or remove: Keep if you manage profiles and especially if you
+  have clients that cannot send authentication tokens and instead use
+  email to specify which profile to modify. If your app uses proper
+  authenticated requests (tokens) you might instead revert to using
+  request.user to choose the profile and remove the email-based
+  selection.
+
+4) OTPVerificationViewSet
+-------------------------
+- Purpose: generate, store, and verify OTP (one-time password) codes
+  used for password resets or email verification. Designed to support
+  email OTP flows.
+- Why it exists: OTP flows are common for passwordless login, signup
+  verification, and password resets. Centralizing OTP generation and
+  verification makes the logic reusable across the app.
+- Important methods and what they do:
+  - `generate_otp()` (class method): picks a random 6-digit OTP and
+    stores it on the class (development convenience). In production
+    you'd persist per-request OTPs only in the database.
+  - `verify_otp_code()` (class method): currently a stub that returns
+    `True`. In a real implementation it should check the stored OTP
+    record for validity and expiry.
+  - `get_queryset()`: filters OTP records by the request user (used by
+    the DRF viewset when listing OTP records).
+  - `create_otp()` (custom action):
+    - Validates input, enforces device blocking rules, generates an
+      OTP, stores it, and attempts to email it. The response shows
+      whether sending succeeded. It uses `EmailService.send_otp_email`.
+  - `verify_otp()` (custom action):
+    - Validates the provided `otp_code` and `contact` (email), then if
+      valid, creates or fetches a `User` for that email and returns
+      JWT tokens, user id and whether the user was created.
+
+- Keep or remove: Keep if you need OTP-based authentication flows or
+  password reset via OTP. If you don't use OTPs in your product, you
+  can remove or heavily simplify this class.
+
+5) UserSessionViewSet
+----------------------
+- Purpose: record and manage user sessions across devices. A session
+  can map a user to a session key, device id/type, and have expiry
+  semantics.
+- Why it exists: it helps track active sessions, validate session
+  keys from mobile devices, and perform logout operations that are
+  device-specific.
+- Important methods and what they do:
+  - `get_queryset()`: returns sessions for the request's authenticated
+    user (standard behavior).
+  - `validate_session()` (custom action, POST):
+    - Accepts `session_key` and `device_id`, validates existence and
+      expiry, updates last activity timestamp, and returns a small
+      payload identifying the user. Useful when a client wants to
+      re-validate a cached session.
+  - `logout()` (custom action):
+    - Invalidates a specific session (identified by `session_key` and
+      `device_id`), sets status to terminated, and records the activity.
+
+- Keep or remove: Keep if the app needs multi-device session tracking
+  and server-side session invalidation. If you rely on stateless JWT
+  only and do not need server-side session records, you can remove or
+  reduce this functionality.
+
+6) SendOTPView (class-based APIView)
+------------------------------------
+- Purpose: legacy endpoint for creating/sending an OTP. It mirrors
+  `OTPVerificationViewSet.create_otp` but is kept for backward
+  compatibility (or alternate clients).
+- Why it exists: sometimes older clients or external services call a
+  simpler URL. This view provides a `post()` method that validates the
+  email, generates an OTP, stores it, and sends the email.
+- Keep or remove: Keep for backward compatibility if old clients call
+  this endpoint. Otherwise prefer the structured `OTPVerificationViewSet`.
+
+Why you saw an HTML template (404 page)
+--------------------------------------
+- Django returns HTML pages for normal (non-API) requests when `DEBUG`
+  is True. The HTML you saw is Django's 404 debug page. Possible
+  reasons you encountered it:
+  - The client requested an endpoint that is not registered in
+    `urls.py` (route mismatch). The response is a Django 404 HTML page
+    rather than JSON.
+  - You requested a URL under `api/v1/...` that doesn't exist or is
+    incorrectly named — check your router registrations in
+    `project/urls.py` and `project/users/urls.py`.
+  - For media/image URLs, if Django isn't serving media files in
+    development (or your `MEDIA_URL` / `MEDIA_ROOT` are misconfigured),
+    the browser gets an HTML 404 page instead of an image. When the
+    Flutter web engine tries to decode that HTML as an image, it fails
+    with the ImageCodecException you saw.
+
+How to proceed when deciding what to keep or remove
+---------------------------------------------------
+- Step 1: Decide which high-level responsibilities you want in this
+  repo: user accounts, profiles, sessions, OTP flows. Keep classes
+  that match required responsibilities.
+- Step 2: If you keep token-based auth and `request.user` handling,
+  consider simplifying `UserProfileViewSet` to use `request.user` and
+  remove the email-based selection to reduce risk of accidental
+  updates.
+- Step 3: If you do not need server-side session records, you can
+  remove `UserSessionViewSet` and related `UserSession` model logic.
+- Step 4: If OTP is not used, remove `OTPVerificationViewSet` and
+  `SendOTPView` (or keep only one of them to avoid duplication).
+
+Final notes
+-----------
+- This file mixes standard DRF ModelViewSet behavior with custom
+  actions and many debug print statements. Before removing code,
+  search your frontend for references to the endpoints (URLs and
+  action names) to avoid breaking the app.
+- If you tell me which responsibilities you want to keep (e.g.
+  "I want user accounts + profiles only; no OTP or sessions"), I can
+  produce a suggested minimal `views.py` that removes unused classes
+  and consolidates logic.
+
+End of explanation.

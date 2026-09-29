@@ -1,0 +1,130 @@
+API CONTRACT TEST RUN – CONSOLIDATED LOG
+Project: x:\edvoyage-backup-cursor\backend\edvoayge
+Date: 2026-02-07
+
+1) ENVIRONMENT / DEPENDENCY SETUP
+
+Command:
+  pip install pytest pytest-django django-filter djangorestframework-simplejwt drf-yasg django-cors-headers
+Result:
+  - Successfully installed: pytest-django-4.11.1
+  - Others were already satisfied in the environment.
+
+2) ENDPOINT DISCOVERY
+
+Files created:
+  - discover_endpoints.py
+
+Command:
+  python discover_endpoints.py
+Result:
+  - Endpoint list printed to terminal (very long; output was truncated by the IDE).
+  - Example lines observed near end of output (truncated):
+      /api/v1/universities/universities/
+      /api/v1/users/
+      /api/v1/users/otp/
+      /api/v1/users/send-otp/
+  - Note: discovery includes DRF regex-style patterns and format-suffix variants.
+
+3) INITIAL TEST SUITE BOOTSTRAP (PYTEST)
+
+Files created:
+  - pytest.ini
+  - test_api_contract.py
+
+Command:
+  pytest test_api_contract.py -s
+Result (failure due to unrelated global pytest plugin):
+  ImportError: cannot import name '_request_ctx_stack' from 'flask'
+  Root cause: pytest auto-loaded 'pytest-flask' plugin which is incompatible with installed Flask version.
+
+Fix:
+Command:
+  pip uninstall pytest-flask -y
+Result:
+  Successfully uninstalled pytest-flask-1.2.0
+
+Re-run:
+Command:
+  pytest test_api_contract.py -s
+Result:
+  - Initially: 1 failed, 3 passed (users list assertion mismatch)
+  - Root cause: wrong URL assumption and response structure mismatch.
+  - Fix applied: corrected to /api/v1/users/users/ after inspecting users/urls.py
+  - Then: 4 passed, 2 warnings
+
+4) LARGE-SCALE AUTO CONTRACT RUN (AUTO-DISCOVERED STATIC ENDPOINTS)
+
+Issue found:
+  - Many endpoints returned 500 when accessed anonymously because some view/query code expects an authenticated user.
+  - Fix applied in test harness: run checks with an authenticated client.
+
+Command:
+  pytest test_api_contract.py -s -vv
+Result:
+  - 202 passed, 6 skipped
+  - 1 failed due to 500 on /api/v1/quizzes/categories/
+  - Warnings observed: DRF UnorderedObjectListWarning for pagination on unordered querysets.
+
+5) FINAL HARDENED CONTRACT RUN (ANON + AUTH, NO ABORT ON EXCEPTIONS)
+
+File updated:
+  - test_api_contract.py was upgraded so:
+    - APIClient.raise_request_exception = False (view exceptions do not abort pytest)
+    - each endpoint is tested twice:
+        - anon GET
+        - auth GET
+    - contract failures only on:
+        - HTTP 500
+        - HTTP 200 but non-JSON or invalid JSON
+    - writes machine-readable report:
+        api_contract_report.json
+
+Command:
+  pytest test_api_contract.py -s -q
+Result:
+  - 202 passed, 6 skipped
+  - 1 failed:
+      /api/v1/quizzes/categories/ (anon) => 500
+
+JSON Report Generated:
+  - api_contract_report.json
+
+Key summary from api_contract_report.json:
+  {
+    "total_checks": 405,
+    "passed_checks": 404,
+    "failed_checks": 1,
+    "slow_checks": 0,
+    "health_score": 99.75308641975309
+  }
+
+Failure detail (from report):
+  - url: /api/v1/quizzes/categories/
+  - mode: anon
+  - method: GET
+  - status: 500
+  - content-type: text/html; charset=utf-8
+  - failure: "500 Internal Server Error" (HTML 500 page)
+
+6) ADDITIONAL LOGS
+
+Command used to capture a very large pytest output to a file:
+  pytest test_api_contract.py -s > test_report.txt
+Result:
+  - test_report.txt was generated, but the IDE file viewer reports it contains NULL bytes.
+  - Because of that, it may not render correctly via some file viewers.
+  - The authoritative structured results are in api_contract_report.json.
+
+Artifacts in this folder:
+  - pytest.ini
+  - discover_endpoints.py
+  - test_api_contract.py
+  - api_contract_report.json
+  - test_report.txt
+
+CURRENT STATUS
+  - Contract health is very high (99.75%) across discovered static endpoints.
+  - One endpoint crashes for anonymous requests:
+      GET /api/v1/quizzes/categories/
+  - Next debugging action (not performed here): inspect quizzes categories view/query/permissions and decide whether it must be public or must return 401/403 for anon.

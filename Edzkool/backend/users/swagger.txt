@@ -1,0 +1,129 @@
+Users API — Human-readable Swagger Summary
+=========================================
+
+Base URL
+--------
+- http://127.0.0.1:8000/api/v1
+
+Overview
+--------
+This document summarizes the OpenAPI/Swagger spec for the Users-related
+endpoints in this project. It lists each endpoint, the HTTP methods
+available, required parameters, request bodies (where applicable), and
+the typical responses. Schemas referenced are described at the end.
+
+Endpoints
+---------
+
+1) /users/
+   - Methods:
+     - GET — List users (paginated).
+       - Response: 200 JSON containing a list of `User` objects.
+     - POST — Create a new user.
+       - Request body (application/json): fields matching `UserCreate` schema (required: `email`, `username`, may include `password`, `first_name`, `last_name`).
+       - Response: 201 JSON containing the created `User`.
+
+2) /users/{userId}/
+   - Path parameter:
+     - `userId` (integer) — the user primary key.
+   - Methods:
+     - GET — Retrieve a user by ID.
+       - Responses: 200 with `User`, 404 if not found.
+     - PUT — Replace a user (full update).
+       - Request body: same as `UserCreate`.
+       - Response: 200 with updated `User`.
+     - PATCH — Partial update of a user.
+       - Request body: `UserPartial` (any subset of fields).
+       - Response: 200 with updated `User`.
+     - DELETE — Remove a user.
+       - Response: 204 No Content.
+
+3) /users/by-email/
+   - Method: GET — Fetch a user's full data by email.
+   - Query parameter:
+     - `email` (string) — required.
+   - Response:
+     - 200 with full `User` data (the `profile` property may include profile data if available).
+     - 400 if `email` missing.
+     - 404 if user not found.
+
+4) /otp/  (OTP viewset base)
+   - Methods (controller-level):
+     - GET — list OTP records (administrative/debug; returns OTP entries).
+     - POST — generic create (may or may not be used directly).
+
+5) /otp/create/
+   - Method: POST — Create an OTP record and attempt to send it by email.
+   - Request body: `OTPCreate`.
+     - `otp_type` (string) — e.g. `register`, `password_reset`.
+     - `contact` (string) — email address to send to.
+   - Response: 201 with `OTPResponse` if created and email attempted. 500 if sending failed.
+
+6) /otp/verify/
+   - Method: POST — Verify an OTP code for a contact.
+   - Request body: `OTPVerifyRequest`.
+     - `otp_code` (string) and `contact` (string) required.
+   - Response:
+     - 200 on success (SuccessResponse).
+     - 400 on invalid or missing OTP.
+
+7) /send-otp/
+   - Method: POST — Legacy endpoint to send an OTP (keeps backward compatibility).
+   - Request body: `SendOTPRequest` (`contact` = email).
+   - Response: 201 with `OTPResponse` (contains `otp` in development mode) or 500 on failure.
+
+Schemas (brief, human language)
+-------------------------------
+- User
+  - Represents a user record returned by the API.
+  - Typical properties: `id` (int), `email` (string), `username` (string), `first_name`, `last_name`.
+  - `profile` (optional object) may be included with profile-related fields when available.
+
+- UserCreate
+  - Request object for creating (or replacing) a user.
+  - Required: `email`, `username`.
+  - Optional: `password`, `first_name`, `last_name`.
+
+- UserPartial
+  - For PATCH requests. Any of the user fields can be included.
+
+- OTPCreate
+  - Send/create request for OTP.
+  - Required fields:
+    - `otp_type`: purpose of the OTP (e.g., `register`, `password_reset`).
+    - `contact`: email address to send the OTP to.
+
+- OTPVerifyRequest
+  - Fields required to verify an OTP:
+    - `otp_code` (string)
+    - `contact` (string, email)
+
+- SendOTPRequest
+  - Legacy form with `contact` (email) to send OTP.
+
+- OTPResponse
+  - Generic response shape for OTP creation endpoints.
+  - Contains `success` (boolean), `data` (object) and `message` (string).
+
+How to use this summary
+-----------------------
+- For quick testing use these example requests:
+  - List users: GET http://127.0.0.1:8000/api/v1/users/
+  - Create user: POST http://127.0.0.1:8000/api/v1/users/ with JSON {"email":"a@b.com","username":"a"}
+  - Fetch by email: GET http://127.0.0.1:8000/api/v1/users/by-email/?email=a@b.com
+  - Create OTP: POST http://127.0.0.1:8000/api/v1/otp/create/ with {"otp_type":"register","contact":"a@b.com"}
+  - Verify OTP: POST http://127.0.0.1:8000/api/v1/otp/verify/ with {"otp_code":"123456","contact":"a@b.com"}
+
+Notes & caveats
+---------------
+- The `User` schema in this summary is intentionally minimal — the
+  actual `UserSerializer` in the code may expose extra fields.
+- OTP endpoints in this project may expose the generated OTP in the
+  response during development. Remove this for production.
+- The `users/by-email` endpoint returns combined data (user + profile)
+  if profile data is present. If you want a unified schema for
+  `user+profile`, let me know and I will add a clear `UserWithProfile`
+  schema.
+
+If you want the same content as JSON or a README-style markdown file,
+I can produce that as well.

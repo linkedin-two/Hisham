@@ -1,0 +1,37 @@
+import 'package:flutter/material.dart';
+
+import 'package:edzkool/utils/colors/colors.dart';
+import 'package:edzkool/utils/responsive.dart';
+
+class LongButton extends StatelessWidget {
+  final String text;
+  final VoidCallback action;
+
+  const LongButton({super.key, required this.action, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    final size = Measurements(MediaQuery.of(context).size);
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        width: size.wp(87),
+        height: size.hp(5),
+        decoration: BoxDecoration(
+            color: secondaryColor, borderRadius: BorderRadius.circular(10)),
+        child: TextButton(
+          onPressed: action,
+          child: Text(
+            text,
+            textScaler: TextScaler.linear(1.25),
+            style: TextStyle(
+              fontFamily: 'Roboto',
+              color: thirdColor,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

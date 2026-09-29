@@ -1,0 +1,4171 @@
+{
+  "total_checks": 416,
+  "passed_checks": 416,
+  "failed_checks": 0,
+  "slow_checks": 0,
+  "health_score": 100.0,
+  "failures": [],
+  "slow": [],
+  "all": [
+    {
+      "url": "/api/v1/payments/api/payments/subscriptions/create/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.019895315170288086,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/subscriptions/create/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.016927719116210938,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-event-registrations/my-registrations/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.004906177520751953,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-event-registrations/my-registrations/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.0015039443969726562,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-events/upcoming/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.002584695816040039,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-events/upcoming/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.0016028881072998047,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/subscriptions/downgrade/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.002038240432739258,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/subscriptions/downgrade/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.002010345458984375,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/universities/programs/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0071413516998291016,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/universities/programs/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0026264190673828125,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/quizzes/quizzes/statistics/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0056934356689453125,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/quizzes/quizzes/statistics/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0035817623138427734,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/content/comments/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.006207704544067383,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/content/comments/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0024771690368652344,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/notes/mcqs/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0031070709228515625,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/notes/mcqs/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0010094642639160156,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/universities/universities/stats/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.004669189453125,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/universities/universities/stats/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0038344860076904297,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/invoices/overdue/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0026009082794189453,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/invoices/overdue/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0010063648223876953,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/stats/overview/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.006094932556152344,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/stats/overview/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0038356781005859375,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-experiences/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.003704071044921875,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-experiences/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0021424293518066406,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/quizzes/quizzes/bulk-action/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.0031273365020751953,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/quizzes/quizzes/bulk-action/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.002121448516845703,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-experiences/featured_experiences/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.002574920654296875,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-experiences/featured_experiences/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0021059513092041016,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/content/downloads/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0041425228118896484,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/content/downloads/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0018486976623535156,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/notes/categories/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0035343170166015625,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/notes/categories/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0010051727294921875,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/transactions/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.002644777297973633,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/transactions/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0016226768493652344,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/universities/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.1555943489074707,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/universities/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0005037784576416016,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/billing/summary/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.004021883010864258,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/billing/summary/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0030622482299804688,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/users/password-reset/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0010259151458740234,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/users/password-reset/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/simple-education/education/update_education/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0005459785461425781,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/simple-education/education/update_education/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0010368824005126953,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/cavity/api/search/users/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.001508951187133789,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/cavity/api/search/users/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/billing/upcoming/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.003004789352416992,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/billing/upcoming/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0005054473876953125,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/content/contents/bulk-action/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.0025703907012939453,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/content/contents/bulk-action/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.0021257400512695312,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/logs/errors/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0025167465209960938,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/logs/errors/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0015683174133300781,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/cavity/api/notifications/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.002532482147216797,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/cavity/api/notifications/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.08387899398803711,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/subscriptions/stats/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0048787593841552734,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/subscriptions/stats/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.002079010009765625,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/subscriptions/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.003089427947998047,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/subscriptions/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0020172595977783203,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-experiences/my-experiences/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.0031037330627441406,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-experiences/my-experiences/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.002508878707885742,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-applications/my_applications/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.003025531768798828,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-applications/my_applications/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0025587081909179688,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/users/logout/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0012633800506591797,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/users/logout/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0015041828155517578,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/content/tags/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0016317367553710938,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/content/tags/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0010046958923339844,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-programs/by-country/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.003618955612182617,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-programs/by-country/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.0014367103576660156,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-programs/by-type/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.0020744800567626953,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-programs/by-type/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.0020055770874023438,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/chat/api/notifications/read_all/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0015020370483398438,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/chat/api/notifications/read_all/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0015823841094970703,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/invoices/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.005637407302856445,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/invoices/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0027108192443847656,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/payment-methods/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0030279159545898438,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/payment-methods/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0020241737365722656,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/simple-education/education/my_education/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 400,
+      "duration_s": 0.0,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/simple-education/education/my_education/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 400,
+      "duration_s": 0.002094268798828125,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/gateways/supported_methods/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0015208721160888672,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/gateways/supported_methods/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0010068416595458984,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/universities/universities/search/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0011227130889892578,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/universities/universities/search/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0005526542663574219,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/content/shares/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.004098176956176758,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/content/shares/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.003019571304321289,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/content/bookmarks/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0030183792114257812,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/content/bookmarks/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.003292560577392578,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-programs/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.004738569259643555,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-programs/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.00150299072265625,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0015475749969482422,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0015604496002197266,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/notes/flashcards/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.003083944320678711,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/notes/flashcards/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0015442371368408203,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/bookmarks/universities/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0021240711212158203,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/bookmarks/universities/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0005044937133789062,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/content/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.001506805419921875,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/content/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0020825862884521484,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/chat/api/notifications/unread_count/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.002157926559448242,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/chat/api/notifications/unread_count/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0020134449005126953,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-resources/featured_resources/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0025424957275390625,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-resources/featured_resources/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0010728836059570312,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/notes/options/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0015506744384765625,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/notes/options/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0005407333374023438,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/chat/api/notifications/read-all/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.0030205249786376953,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/chat/api/notifications/read-all/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.0015037059783935547,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/notes/clinical-cases/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.002060413360595703,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/notes/clinical-cases/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0016520023345947266,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/chat/api/search/messages/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 400,
+      "duration_s": 0.002022981643676758,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/chat/api/search/messages/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 400,
+      "duration_s": 0.0020346641540527344,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-events/by_type/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 400,
+      "duration_s": 0.0015115737915039062,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-events/by_type/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 400,
+      "duration_s": 0.0010068416595458984,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/content/ratings/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.003014087677001953,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/content/ratings/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.002870321273803711,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/users/change-password/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0010082721710205078,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/users/change-password/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/quizzes/attempts/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0035223960876464844,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/quizzes/attempts/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0020225048065185547,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/universities/universities/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.005738735198974609,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/universities/universities/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0031299591064453125,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/payment-methods/add-wallet/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.002843618392944336,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/payment-methods/add-wallet/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.0021457672119140625,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/billing/history/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.004525184631347656,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/billing/history/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.003040313720703125,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/stats/trends/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.002510547637939453,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/stats/trends/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0015053749084472656,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/quizzes/quizzes/bulk_action/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0010819435119628906,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/quizzes/quizzes/bulk_action/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0010151863098144531,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-experiences/approved_experiences/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0026030540466308594,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-experiences/approved_experiences/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.002062082290649414,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-programs/by_type/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 400,
+      "duration_s": 0.0015034675598144531,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-programs/by_type/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 400,
+      "duration_s": 0.0005745887756347656,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/cavity/api/notifications/unread_count/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0027124881744384766,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/cavity/api/notifications/unread_count/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0010366439819335938,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/applications/applications/submit/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0010035037994384766,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/applications/applications/submit/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.001004934310913086,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/process/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0015118122100830078,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/process/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0009992122650146484,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/content/contents/search/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.004160404205322266,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/content/contents/search/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.002623319625854492,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/security/validate-transaction/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0015158653259277344,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/security/validate-transaction/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0011057853698730469,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/content/contents/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.004171848297119141,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/content/contents/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0031981468200683594,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/cavity/api/auth/profile/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.007238626480102539,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/cavity/api/auth/profile/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0030698776245117188,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/universities/research/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0035228729248046875,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/universities/research/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0021147727966308594,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/notifications/notifications/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0015058517456054688,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/notifications/notifications/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0010063648223876953,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-applications/my-applications/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.0025107860565185547,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-applications/my-applications/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.002508878707885742,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/chat/api/notifications/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0026521682739257812,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/chat/api/notifications/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0015857219696044922,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/logs/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0031273365020751953,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/logs/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.002018451690673828,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-programs/by_country/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 400,
+      "duration_s": 0.0011014938354492188,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-programs/by_country/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 400,
+      "duration_s": 0.0005576610565185547,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/content/contents/statistics/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.005027294158935547,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/content/contents/statistics/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0045621395111083984,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/users/login/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0010423660278320312,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/users/login/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0010063648223876953,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/quizzes/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.002012968063354492,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/quizzes/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/chat/api/users/search/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 400,
+      "duration_s": 0.0029697418212890625,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/chat/api/users/search/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 400,
+      "duration_s": 0.0010995864868164062,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/applications/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.010581731796264648,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/applications/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-events/by-type/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.0030837059020996094,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-events/by-type/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.0010051727294921875,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/quizzes/quizzes/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0038003921508789062,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/quizzes/quizzes/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.002717733383178711,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-programs/featured_programs/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0031909942626953125,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-programs/featured_programs/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.002111196517944336,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/chat/api/message-status/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.002663135528564453,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/chat/api/message-status/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0005044937133789062,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/simple-education/social/my_social/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 400,
+      "duration_s": 0.0010387897491455078,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/simple-education/social/my_social/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 400,
+      "duration_s": 0.0010042190551757812,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/payment-methods/defaults/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0030214786529541016,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/payment-methods/defaults/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0015168190002441406,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/analytics/spending-patterns/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0037407875061035156,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/analytics/spending-patterns/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.004083156585693359,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/courses/subjects/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.002470254898071289,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/courses/subjects/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0005693435668945312,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/quizzes/quizzes/search/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.004065990447998047,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/quizzes/quizzes/search/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0015125274658203125,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/feed/users/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0015039443969726562,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/feed/users/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0010802745819091797,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-events/featured_events/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.005025386810302734,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-events/featured_events/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.015253067016601562,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/content/contents/bulk_action/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0015101432800292969,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/content/contents/bulk_action/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0005419254302978516,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/courses/courses/filter/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0005116462707519531,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/courses/courses/filter/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0015749931335449219,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/quizzes/shares/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0035474300384521484,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/quizzes/shares/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0026123523712158203,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-resources/active_resources/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0030739307403564453,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-resources/active_resources/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0020914077758789062,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/transactions/recent/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0020656585693359375,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/transactions/recent/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0010044574737548828,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/cavity/api/users/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0020668506622314453,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/cavity/api/users/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.001537322998046875,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-experiences/approved/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.0030698776245117188,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-experiences/approved/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.001004934310913086,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/courses/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0016226768493652344,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/courses/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0005846023559570312,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/webhook/paypal/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0015077590942382812,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/webhook/paypal/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/cavity/api/comments/create/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0015211105346679688,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/cavity/api/comments/create/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/subscriptions/upgrade/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.003095388412475586,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/subscriptions/upgrade/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.001049041748046875,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/courses/courses/search/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0030155181884765625,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/courses/courses/search/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0013718605041503906,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/payment-methods/add-bank/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.0025267601013183594,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/payment-methods/add-bank/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.0015039443969726562,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/chat/api/messages/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.003594636917114258,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/chat/api/messages/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0027670860290527344,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/users/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0031745433807373047,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/users/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0005052089691162109,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/universities/universities/compare/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0010094642639160156,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/universities/universities/compare/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0008251667022705078,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-experiences/featured/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.0029747486114501953,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-experiences/featured/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.002049684524536133,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/simple-education/social/update_social/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0020134449005126953,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/simple-education/social/update_social/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0005033016204833984,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-resources/featured/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.0020096302032470703,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-resources/featured/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.0024454593658447266,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-applications/by-status/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.002474546432495117,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-applications/by-status/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.0010094642639160156,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/applications/applications/stats/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.007025241851806641,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/applications/applications/stats/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.004029273986816406,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/applications/applications/test-create/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0010037422180175781,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/applications/applications/test-create/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0015101432800292969,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/applications/applications/simple-test/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.002045154571533203,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/applications/applications/simple-test/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0010135173797607422,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/cavity/api/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.006684780120849609,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/cavity/api/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0010056495666503906,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/subscriptions/active/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0020551681518554688,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/subscriptions/active/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.001008749008178711,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/universities/campuses/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0039000511169433594,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/universities/campuses/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.003091096878051758,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/payment-methods/add-card/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.0030825138092041016,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/payment-methods/add-card/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.0018188953399658203,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/support/transaction-issues/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0030603408813476562,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/support/transaction-issues/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0022444725036621094,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/subscriptions/expiring-soon/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.0035190582275390625,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/subscriptions/expiring-soon/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.0015530586242675781,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/support/refund-requests/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0034313201904296875,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/support/refund-requests/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.003070354461669922,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-resources/active/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.002542734146118164,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-resources/active/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.002012014389038086,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/webhook/razorpay/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.001007080078125,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/webhook/razorpay/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0007536411285400391,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/quizzes/timers/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0040340423583984375,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/quizzes/timers/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.002662181854248047,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/notifications/notifications/offers/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.003042459487915039,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/notifications/notifications/offers/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.001013040542602539,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/cavity/api/posts/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.004112720489501953,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/cavity/api/posts/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.002511739730834961,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/notes/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0015087127685546875,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/notes/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/cavity/api/users/my_posts/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0015103816986083984,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/cavity/api/users/my_posts/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0015099048614501953,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/users/password-reset-confirm/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.001024007797241211,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/users/password-reset-confirm/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0011088848114013672,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/webhook/stripe/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0012485980987548828,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/webhook/stripe/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.001010894775390625,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-events/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0026853084564208984,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-events/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0015659332275390625,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/cavity/api/notifications/read-all/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.002023458480834961,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/cavity/api/notifications/read-all/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.0010635852813720703,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0028650760650634766,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0010318756103515625,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/cavity/api/users/posts/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.0015118122100830078,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/cavity/api/users/posts/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.001007080078125,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-events/upcoming_events/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.00201416015625,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-events/upcoming_events/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0020046234130859375,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-applications/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.004593372344970703,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-applications/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.002550840377807617,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/universities/faculties/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.003145456314086914,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/universities/faculties/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.002023935317993164,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/quizzes/analytics/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.003020048141479492,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/quizzes/analytics/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0034623146057128906,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/users/upload-profile-image/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0015604496002197266,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/users/upload-profile-image/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0005075931549072266,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-event-registrations/my_registrations/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.002508401870727539,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-event-registrations/my_registrations/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.002507448196411133,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/content/contents/popular/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.003121614456176758,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/content/contents/popular/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0015101432800292969,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/chat/api/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.00743556022644043,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/chat/api/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0005483627319335938,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/universities/rankings/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.004133462905883789,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/universities/rankings/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0026204586029052734,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/cavity/api/users/profile/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0045168399810791016,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/cavity/api/users/profile/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.002104043960571289,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/chat/api/messages/search/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 400,
+      "duration_s": 0.00201416015625,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/chat/api/messages/search/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 400,
+      "duration_s": 0.0010216236114501953,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/content/feeds/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0025560855865478516,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/content/feeds/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0020818710327148438,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/payment-methods/stats/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.002408266067504883,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/payment-methods/stats/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0020711421966552734,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/analytics/subscription-metrics/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.00422358512878418,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/analytics/subscription-metrics/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.003702402114868164,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/simple-education/work/my_work/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 400,
+      "duration_s": 0.0010488033294677734,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/simple-education/work/my_work/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 400,
+      "duration_s": 0.0010051727294921875,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/gateways/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0026166439056396484,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/gateways/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0020139217376708984,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/content/contents/featured/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0032553672790527344,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/content/contents/featured/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.002650022506713867,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/universities/partnerships/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0035784244537353516,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/universities/partnerships/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0016188621520996094,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/quizzes/quizzes/popular/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0030651092529296875,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/quizzes/quizzes/popular/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.002109527587890625,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/refunds/stats/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.004015922546386719,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/refunds/stats/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.002061605453491211,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-applications/by_status/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 400,
+      "duration_s": 0.001013040542602539,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-applications/by_status/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 400,
+      "duration_s": 0.002508878707885742,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-event-registrations/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0035140514373779297,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-event-registrations/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0010008811950683594,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/content/contents/recent/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0021712779998779297,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/content/contents/recent/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0021712779998779297,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/quizzes/categories/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.002009153366088867,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/quizzes/categories/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.001512765884399414,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/content/categories/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0032062530517578125,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/content/categories/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0010046958923339844,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/analytics/payment-methods-usage/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0050699710845947266,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/analytics/payment-methods-usage/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.002508401870727539,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/courses/courses/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.00410151481628418,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/courses/courses/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0032777786254882812,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/content/analytics/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0045473575592041016,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/content/analytics/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0030629634857177734,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/users/users/by-email/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 400,
+      "duration_s": 0.0010623931884765625,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/users/users/by-email/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 400,
+      "duration_s": 0.0005061626434326172,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/applications/applications/search/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0005114078521728516,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/applications/applications/search/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0015485286712646484,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/simple-education/work/update_work/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0020499229431152344,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/simple-education/work/update_work/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0005452632904052734,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/transactions/stats/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.004637002944946289,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/transactions/stats/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0035483837127685547,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/chat/api/rooms/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.003968000411987305,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/chat/api/rooms/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.002565622329711914,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/bookmarks/courses/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.002014636993408203,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/bookmarks/courses/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.002010822296142578,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/notes/questions/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0021550655364990234,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/notes/questions/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/quizzes/quizzes/recent/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0026035308837890625,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/quizzes/quizzes/recent/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0031337738037109375,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/chat/api/notifications/unread-count/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.0015039443969726562,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/chat/api/notifications/unread-count/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.0015711784362792969,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/invoices/stats/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0030641555786132812,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/invoices/stats/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0035419464111328125,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/notes/subjects/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.002398252487182617,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/notes/subjects/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0010919570922851562,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/courses/applications/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0030527114868164062,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/courses/applications/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0015087127685546875,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/notifications/notifications/non-offers/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0020096302032470703,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/notifications/notifications/non-offers/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0005719661712646484,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/notes/doctors/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0020270347595214844,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/notes/doctors/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0009999275207519531,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/quizzes/categories/reorder/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0005042552947998047,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/quizzes/categories/reorder/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0010120868682861328,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-programs/active_programs/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0031516551971435547,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-programs/active_programs/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0015912055969238281,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/config/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0015120506286621094,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/config/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.000568389892578125,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-programs/featured/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.002516031265258789,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-programs/featured/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.0020394325256347656,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/cavity/api/search/posts/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.001004934310913086,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/cavity/api/search/posts/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0005056858062744141,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-experiences/my_experiences/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.002052783966064453,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-experiences/my_experiences/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0015101432800292969,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/courses/courses/stats/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0050449371337890625,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/courses/courses/stats/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.004690408706665039,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-resources/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0031151771545410156,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-resources/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0015230178833007812,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/refunds/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.003694295883178711,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/refunds/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0015149116516113281,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/quizzes/options/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.004561662673950195,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/quizzes/options/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0020971298217773438,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/cavity/api/notifications/read_all/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0010471343994140625,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/cavity/api/notifications/read_all/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0015137195587158203,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/cavity/api/comments/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0025687217712402344,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/cavity/api/comments/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0010478496551513672,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/cavity/api/notifications/unread-count/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.002512693405151367,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/cavity/api/notifications/unread-count/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.0015590190887451172,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/chat/api/contacts/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.002656221389770508,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/chat/api/contacts/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0010156631469726562,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/quizzes/quizzes/featured/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.003096342086791992,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/quizzes/quizzes/featured/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0015132427215576172,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/universities/feeds/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0020456314086914062,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/universities/feeds/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0010170936584472656,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-programs/active/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.0025610923767089844,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-programs/active/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.002003908157348633,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-events/featured/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.002589702606201172,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/study-abroad/study-abroad-events/featured/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.002057313919067383,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/quizzes/questions/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0030226707458496094,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/quizzes/questions/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0025103092193603516,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/feed/categories/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.003072977066040039,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/feed/categories/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.001008749008178711,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/chat/api/search/users/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 400,
+      "duration_s": 0.001041412353515625,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/chat/api/search/users/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 400,
+      "duration_s": 0.002570629119873047,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/applications/applications/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0057888031005859375,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/applications/applications/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.003604888916015625,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/users/users/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0031027793884277344,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/users/users/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.001546621322631836,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/notes/videos/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0020051002502441406,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/notes/videos/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0010464191436767578,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/cavity/api/users/update_profile/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0010502338409423828,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/cavity/api/users/update_profile/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 405,
+      "duration_s": 0.0010082721710205078,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/applications/applications/dashboard/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.007647275924682617,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/applications/applications/dashboard/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.004368782043457031,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/subscriptions/expiring_soon/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.002508401870727539,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/subscriptions/expiring_soon/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0012042522430419922,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/support/payment-disputes/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.002748250961303711,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/support/payment-disputes/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0025124549865722656,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/chat/api/users/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0024826526641845703,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/chat/api/users/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 200,
+      "duration_s": 0.0031058788299560547,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/gateways/supported-methods/",
+      "mode": "anon",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.003673076629638672,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    },
+    {
+      "url": "/api/v1/payments/api/payments/gateways/supported-methods/",
+      "mode": "auth",
+      "method": "GET",
+      "status": 404,
+      "duration_s": 0.001081705093383789,
+      "content_type": "application/json",
+      "json_ok": true,
+      "failure": null
+    }
+  ]
+}

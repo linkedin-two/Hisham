@@ -1,0 +1,352 @@
+﻿import 'package:edzkool/utils/authenticated_http.dart';
+import 'package:flutter/material.dart';
+import 'package:edzkool/utils/app_log.dart';
+import 'package:http/http.dart' as http;
+
+import 'package:edzkool/_env/env.dart';
+import 'package:edzkool/utils/api_response_handler.dart';
+import 'package:edzkool/utils/colors/colors.dart';
+
+class ProfileApplication extends StatefulWidget {
+  const ProfileApplication({super.key});
+
+  @override
+  _ProfileApplicationState createState() => _ProfileApplicationState();
+}
+
+class _ProfileApplicationState extends State<ProfileApplication> {
+  late Future<List<Application>> futureApplications;
+
+  @override
+  void initState() {
+    super.initState();
+    futureApplications = fetchApplications();
+  }
+
+  Future<List<Application>> fetchApplications() async {
+    try {
+      final response =
+          await AuthenticatedHttp.get(Uri.parse(BaseUrl.viewallapplicationsubmit));
+
+      AppLog.debug("API Response Status: ${response.statusCode}");
+      AppLog.debug("API Response Body: ${response.body}");
+
+      if (response.statusCode == 200) {
+        final envelope = ApiResponseHandler.parseResponse(
+          response.body,
+          (data) => data,
+        );
+
+        if (!envelope.isSuccess) {
+          throw Exception(envelope.message.isNotEmpty
+              ? envelope.message
+              : 'Failed to load applications');
+        }
+
+        final list = ApiResponse.extractList(envelope.data);
+        AppLog.debug("API Response (data list): $list");
+
+        final applications = list
+            .map((e) => Application.fromJson(e as Map<String, dynamic>))
+            .toList();
+        return applications;
+      } else {
+        AppLog.debug("Error response: ${response.statusCode} - ${response.body}");
+        throw Exception('Failed to load applications: ${response.statusCode}');
+      }
+    } catch (error) {
+      AppLog.debug("Error during fetchApplications: $error");
+      // Return empty list instead of throwing exception for better UX
+      return [];
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: cblack10,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(30),
+          child: Center(
+            child: FutureBuilder<List<Application>>(
+              future: futureApplications,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircularProgressIndicator(
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(primaryColor),
+                        ),
+                        SizedBox(height: 16),
+                        Text(
+                          'Loading Applications...',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                } else if (snapshot.hasError) {
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.error_outline,
+                          size: 64,
+                          color: Colors.red[400],
+                        ),
+                        SizedBox(height: 16),
+                        Text(
+                          'Error Loading Applications',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red[600],
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          'Please try again later.',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey[500],
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  );
+                } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.description_outlined,
+                        size: 64,
+                        color: Colors.grey[400],
+                      ),
+                      SizedBox(height: 16),
+                      Text(
+                        'No Applications Found',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey[600],
+                        ),
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        'You haven\'t submitted any applications yet.',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey[500],
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  );
+                } else {
+                  List<Application> applications = snapshot.data!;
+                  return Column(
+                    children: applications
+                        .map(
+                          (application) => Padding(
+                            padding: const EdgeInsets.only(bottom: 16.0),
+                            child: Card(
+                              elevation: 8,
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                    width: 4,
+                                    color: const Color.fromARGB(
+                                        255, 255, 255, 255)),
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    // Application Number and Status
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'Application: ${application.name}',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 16,
+                                                  color: Colors.black87,
+                                                ),
+                                              ),
+                                              SizedBox(height: 4),
+                                              Text(
+                                                'Status: ${application.statusDisplay}',
+                                                style: TextStyle(
+                                                  color: primaryColor,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 8, vertical: 4),
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                              color: primaryColor,
+                                              width: 1.5,
+                                            ),
+                                            color: whiteColor,
+                                            borderRadius:
+                                                BorderRadius.circular(12),
+                                          ),
+                                          child: Text(
+                                            '${application.month} ${application.year}',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: primaryColor),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(height: 12),
+
+                                    // University and Program Details
+                                    Container(
+                                      padding: EdgeInsets.all(12),
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey[50],
+                                        borderRadius: BorderRadius.circular(8),
+                                        border: Border.all(
+                                            color: Colors.grey[300]!),
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Icon(Icons.school,
+                                                  color: primaryColor,
+                                                  size: 20),
+                                              SizedBox(width: 8),
+                                              Expanded(
+                                                child: Text(
+                                                  application.universityName
+                                                          .isNotEmpty
+                                                      ? application
+                                                          .universityName
+                                                      : 'University Name Not Available',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 14,
+                                                    color: Colors.black87,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(height: 8),
+                                          Row(
+                                            children: [
+                                              Icon(Icons.book,
+                                                  color: primaryColor,
+                                                  size: 20),
+                                              SizedBox(width: 8),
+                                              Expanded(
+                                                child: Text(
+                                                  application.programName
+                                                          .isNotEmpty
+                                                      ? application.programName
+                                                      : 'Program Name Not Available',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: 13,
+                                                    color: Colors.black87,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(height: 12),
+
+                                    // View Button
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                        .toList(),
+                  );
+                }
+              },
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Application {
+  final int id;
+  final String month;
+  final String year;
+  final String name;
+  final String emailId;
+  final int user;
+  final int university_id;
+  final String createdBy;
+  final String universityName;
+  final String programName;
+  final String statusDisplay;
+
+  Application({
+    required this.id,
+    // university_id
+    required this.university_id,
+    required this.month,
+    required this.year,
+    required this.name,
+    required this.emailId,
+    required this.user,
+    required this.createdBy,
+    required this.universityName,
+    required this.programName,
+    required this.statusDisplay,
+  });
+
+  factory Application.fromJson(Map<String, dynamic> json) {
+    return Application(
+      id: json['id'] ?? 0,
+      month: json['month'] ?? '',
+      year: json['year'] ?? '',
+      name: json['name'] ?? '',
+      emailId: json['email_id'] ?? '',
+      user: json['user'] ?? 0,
+      university_id: json['university_id'] ?? 0,
+      createdBy: json['created_by'] ?? '',
+      universityName: json['university_name'] ?? '',
+      programName: json['program_name'] ?? '',
+      statusDisplay: json['status_display'] ?? '',
+    );
+  }
+}

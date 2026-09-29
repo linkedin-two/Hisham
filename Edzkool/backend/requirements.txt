@@ -1,0 +1,50 @@
+# Edzkool Django backend
+# Install: pip install -r requirements.txt
+#
+# System dependencies (not installable via pip):
+#   - poppler-utils  (required by pdf2image / notes app — see build.sh)
+#   - tesseract-ocr  (optional, only if using pytesseract OCR features)
+
+# --- Core ---
+Django==5.2.4
+
+# --- Django extensions ---
+django-cors-headers==4.7.0
+django-filter==25.1
+django-axes==7.0.1
+whitenoise==6.6.0
+
+# --- REST API & JWT auth ---
+djangorestframework==3.16.1
+djangorestframework_simplejwt==5.5.1
+drf-nested-routers==0.94.2
+drf-yasg==1.21.10
+
+# --- Database (PostgreSQL in production via DATABASE_URL) ---
+psycopg2-binary==2.9.10
+
+# --- AWS S3 media storage ---
+django-storages[s3]==1.14.4
+boto3==1.35.0
+
+# --- Configuration & HTTP ---
+python-dotenv==1.0.1
+requests==2.31.0
+
+# --- Email (optional Resend API; falls back to Django SMTP) ---
+resend==2.4.0
+
+# --- PDF / flashcards (notes app) ---
+pillow==11.3.0
+pdf2image==1.17.0
+PyPDF2==3.0.1
+pytesseract==0.3.10
+
+# --- AI integration (OPENAI_API_KEY in production) ---
+openai==1.30.0
+
+# --- Production WSGI server ---
+gunicorn==23.0.0
+
+# --- Security CI (scripts/security_check.sh, build.sh) ---
+pip-audit==2.10.1

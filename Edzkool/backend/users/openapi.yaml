@@ -1,0 +1,283 @@
+openapi: 3.0.3
+info:
+  title: Users API (minimal)
+  version: '1.0'
+  description: |
+    OpenAPI specification describing the current Users-related endpoints
+    in this project. It includes the minimal CRUD `users` endpoints,
+    a standalone `users/by-email` endpoint, OTP endpoints under `/otp/`,
+    and a legacy `/send-otp/` endpoint.
+
+servers:
+  - url: http://127.0.0.1:8000/api/v1
+
+paths:
+  /users/:
+    get:
+      summary: List users
+      responses:
+        '200':
+          description: A paginated list of users
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/User'
+    post:
+      summary: Create a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreate'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+
+  /users/{userId}/:
+    parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Retrieve a single user by ID
+      responses:
+        '200':
+          description: User object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: Not found
+    put:
+      summary: Replace a user (full update)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreate'
+      responses:
+        '200':
+          description: Updated user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    patch:
+      summary: Partial update of a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserPartial'
+      responses:
+        '200':
+          description: Updated user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    delete:
+      summary: Delete a user
+      responses:
+        '204':
+          description: No content
+
+  /users/by-email/:
+    get:
+      summary: Get full user data by email
+      parameters:
+        - name: email
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User with full data (user + profile if available)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+
+  /otp/:
+    get:
+      summary: List OTP records (administrative)
+      responses:
+        '200':
+          description: List of OTP records
+    post:
+      summary: Create OTP (standard create if supported)
+      responses:
+        '201':
+          description: Created
+
+  /otp/create/:
+    post:
+      summary: Create an OTP and send by email
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OTPCreate'
+      responses:
+        '201':
+          description: OTP created and email attempted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OTPResponse'
+
+  /otp/verify/:
+    post:
+      summary: Verify an OTP code
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OTPVerifyRequest'
+      responses:
+        '200':
+          description: OTP verified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Invalid OTP
+
+  /send-otp/:
+    post:
+      summary: Legacy endpoint to send OTP to an email address
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendOTPRequest'
+      responses:
+        '201':
+          description: OTP created and email sent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OTPResponse'
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        username:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        profile:
+          type: object
+          nullable: true
+          description: Optional profile object (if available)
+    UserCreate:
+      type: object
+      required:
+        - email
+        - username
+      properties:
+        email:
+          type: string
+        username:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        password:
+          type: string
+    UserPartial:
+      type: object
+      properties:
+        email:
+          type: string
+        username:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+    OTPCreate:
+      type: object
+      required:
+        - otp_type
+        - contact
+      properties:
+        otp_type:
+          type: string
+          description: 'Type of OTP (register, password_reset, etc.)'
+        contact:
+          type: string
+          description: 'Email address to send OTP to'
+    OTPVerifyRequest:
+      type: object
+      required:
+        - otp_code
+        - contact
+      properties:
+        otp_code:
+          type: string
+        contact:
+          type: string
+    SendOTPRequest:
+      type: object
+      required:
+        - contact
+      properties:
+        contact:
+          type: string
+    OTPResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: object
+        message:
+          type: string
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+    ErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
