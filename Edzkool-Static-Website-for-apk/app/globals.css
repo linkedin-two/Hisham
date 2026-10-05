@@ -1,0 +1,55 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300..900;1,300..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+
+:root {
+  --font-nunito: 'Nunito', sans-serif;
+  --color-primary: #103C82;
+  --color-primary-dark: #0B2A5D;
+  --color-secondary: #F58220;
+  --color-accent-orange: #F58220;
+  --color-accent-red: #FD4343;
+  --color-accent-teal: #00E2A3;
+  --color-accent-blue: #103C82;
+  --radius-card: 20px;
+  --radius-pill: 9999px;
+}
+
+body {
+  font-family: var(--font-nunito);
+  color: #1E293B;
+  background-color: #FFFFFF;
+  overflow-x: hidden;
+}
+
+@keyframes marqueeScroll {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: inline-flex;
+  white-space: nowrap;
+  animation: marqueeScroll 30s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+.bright-card-shadow {
+  box-shadow: 0 10px 30px -5px rgba(16, 60, 130, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.bright-card-shadow:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px -10px rgba(16, 60, 130, 0.2);
+}
+
+.bg-bright-gradient {
+  background: linear-gradient(90deg, #103C82 0%, #F58220 100%);
+}
