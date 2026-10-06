@@ -13,7 +13,7 @@ export default function Footer() {
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center space-x-3">
               <img
-                src="/Hisham/Hisham/logo.png"
+                src="/Hisham/logo.png"
                 alt="Edzkool Logo"
                 className="h-11 w-auto object-contain rounded-xl bg-white p-1 shadow-sm"
               />
