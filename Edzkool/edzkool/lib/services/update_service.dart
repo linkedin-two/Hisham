@@ -10,10 +10,10 @@ class UpdateService {
       PackageInfo packageInfo = await PackageInfo.fromPlatform();
       int currentVersionCode = int.parse(packageInfo.buildNumber);
 
-      final response = await http.get(Uri.parse('$apiBaseUrl/api/users/latest-app-version/'));
+      final response = await http.get(Uri.parse('$apiBaseUrl/api/v1/users/latest-app-version/'));
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = json.decode(response.body);
-        if (responseData['status'] == 'success') {
+        if (responseData['success'] == true) {
            final data = responseData['data'];
            int latestVersionCode = data['version_code'];
 

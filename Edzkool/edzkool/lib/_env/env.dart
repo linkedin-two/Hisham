@@ -7,7 +7,7 @@ class BaseUrl {
   // ===========================================================================
   static const bool isDebug = false;
   static const String _localhostUrl = 'http://localhost:8000';
-  static const String _productionUrl = 'https://edvoyage-backup-cursor-2.onrender.com';
+  static const String _productionUrl = 'https://edzkool.duckdns.org';
 
   /// Active Base Server URL
   static const String baseUrlApi = isDebug ? _localhostUrl : _productionUrl;
