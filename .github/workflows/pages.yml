@@ -29,11 +29,13 @@ jobs:
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       - name: Upload Edzkool website
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './Edzkool-Static-Website-for-apk'
+          path: './Edzkool-Static-Website-for-apk/out'
 
       - name: Deploy to GitHub Pages
         id: deployment
