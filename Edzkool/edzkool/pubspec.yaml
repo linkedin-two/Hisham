@@ -72,6 +72,8 @@ dependencies:
   http_parser: ^4.0.2
   validators: ^3.0.0
   safe_device: ^1.1.7
+  ota_update: ^7.1.0
+  package_info_plus: ^9.0.1
 
   
 

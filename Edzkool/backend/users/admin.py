@@ -309,3 +309,12 @@ try:
 except admin.sites.NotRegistered:
     pass
 admin.site.register(User, UserAdmin)
+
+from .models import AppVersion
+
+@admin.register(AppVersion)
+class AppVersionAdmin(admin.ModelAdmin):
+    list_display = ('version_name', 'version_code', 'is_mandatory', 'is_active', 'created_at')
+    list_filter = ('is_active', 'is_mandatory', 'created_at')
+    search_fields = ('version_name', 'version_code')
+    ordering = ('-version_code',)

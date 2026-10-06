@@ -163,3 +163,29 @@ def upload_profile_image(request):
         message='Profile image updated',
         status_code=status.HTTP_200_OK,
     )
+
+from .models import AppVersion
+
+@api_view(['GET'])
+@permission_classes([]) # No auth required for version checking
+def latest_app_version(request):
+    """Return the latest active app version for OTA updates."""
+    latest_version = AppVersion.objects.filter(is_active=True).order_by('-version_code').first()
+    if not latest_version:
+        return api_error(
+            message='No active app version found',
+            error_code='not_found',
+            status_code=status.HTTP_404_NOT_FOUND,
+        )
+    
+    return api_success(
+        data={
+            'version_code': latest_version.version_code,
+            'version_name': latest_version.version_name,
+            'apk_url': latest_version.apk_url,
+            'release_notes': latest_version.release_notes,
+            'is_mandatory': latest_version.is_mandatory,
+        },
+        message='OK',
+        status_code=status.HTTP_200_OK,
+    )

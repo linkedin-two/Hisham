@@ -8,7 +8,7 @@ fetching a user by email.
 
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import list_users, get_user_by_email
+from .views import list_users, get_user_by_email, latest_app_version
 from .views import upload_profile_image
 from .otp_views import OTPVerificationViewSet
 from .sub_views import (
@@ -47,4 +47,5 @@ urlpatterns = [
     path('send-otp/', SendOTPView.as_view(), name='send-otp'),
 
     path('upload-profile-image/', upload_profile_image, name='users-upload-profile-image'),
+    path('latest-app-version/', latest_app_version, name='latest_app_version'),
 ]

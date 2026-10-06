@@ -326,3 +326,29 @@ class UserActivity(models.Model):
     
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
+
+class AppVersion(models.Model):
+    """
+    Model for managing mobile app version updates.
+    """
+    version_code = models.PositiveIntegerField(help_text="Android version code (e.g., 5)")
+    version_name = models.CharField(max_length=50, help_text="Version name (e.g., 1.0.5)")
+    apk_url = models.URLField(help_text="URL to download the APK")
+    release_notes = models.TextField(blank=True, help_text="Release notes shown to the user")
+    is_mandatory = models.BooleanField(default=False, help_text="Force user to update")
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=True, help_text="Is this the current active version?")
+
+    class Meta:
+        verbose_name = "App Version"
+        verbose_name_plural = "App Versions"
+        ordering = ['-version_code']
+
+    def __str__(self):
+        return f"Version {self.version_name} ({self.version_code})"
+    
+    def save(self, *args, **kwargs):
+        if self.is_active:
+            # Set all other versions to inactive
+            AppVersion.objects.exclude(pk=self.pk).update(is_active=False)
+        super().save(*args, **kwargs)
