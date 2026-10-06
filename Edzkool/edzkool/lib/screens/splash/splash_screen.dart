@@ -36,9 +36,6 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     _checkLoginAndNavigate();
   }
 
-  // temp block out original super.initState call to prevent duplicate
-    // handled above
-  }
 
   Future<bool> _fetchDeveloperMode() async {
     try {

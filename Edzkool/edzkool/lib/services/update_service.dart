@@ -10,7 +10,7 @@ class UpdateService {
       PackageInfo packageInfo = await PackageInfo.fromPlatform();
       int currentVersionCode = int.parse(packageInfo.buildNumber);
 
-      final response = await http.get(Uri.parse('\/api/users/latest-app-version/'));
+      final response = await http.get(Uri.parse('$apiBaseUrl/api/users/latest-app-version/'));
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = json.decode(response.body);
         if (responseData['status'] == 'success') {
@@ -30,7 +30,7 @@ class UpdateService {
         }
       }
     } catch (e) {
-      print("Failed to check for updates: \");
+      print("Failed to check for updates: $e");
     }
     return false;
   }
@@ -60,7 +60,7 @@ class UpdateService {
                       const SizedBox(height: 8),
                       LinearProgressIndicator(value: progress / 100),
                       const SizedBox(height: 8),
-                      Text("\%"),
+                      Text("${progress.toStringAsFixed(0)}%"),
                     ]
                   ],
                 ),
@@ -106,7 +106,7 @@ class UpdateService {
         },
       );
     } catch (e) {
-      print('Failed to make OTA update. Details: \');
+      print('Failed to make OTA update. Details: $e');
     }
   }
 }
