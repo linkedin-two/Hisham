@@ -78,7 +78,7 @@ export default function ApkDownloadSection() {
             {/* Direct APK Download Form Button */}
             <form onSubmit={(e) => e.preventDefault()} className="space-y-3">
               <a
-                href="/edzkool-app.apk"
+                href="/Hisham/edzkool-app.apk"
                 download="Edzkool_Student_App.apk"
                 onClick={handleDownload}
                 className="w-full bg-[#F58220] hover:bg-[#D96C0D] text-white font-black py-4 px-6 rounded-pill text-sm transition-all transform hover:scale-105 shadow-lg flex items-center justify-center space-x-3 border-b-2 border-orange-700"
