@@ -7,9 +7,9 @@ export const metadata: Metadata = {
   description:
     "Edzkool offers premium online 1-to-1 tuition, coaching classes, English, IELTS, tuition for grades 1-10, and coding classes. Empowering students with personalized learning.",
   icons: {
-    icon: "/Hisham/logo.png",
-    shortcut: "/Hisham/logo.png",
-    apple: "/Hisham/logo.png",
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
   },
   keywords: [
     "Edzkool",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     siteName: "Edzkool",
     images: [
       {
-        url: "/Hisham/logo.png",
+        url: "/logo.png",
         width: 800,
         height: 600,
       },

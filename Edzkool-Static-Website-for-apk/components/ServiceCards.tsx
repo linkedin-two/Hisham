@@ -4,12 +4,12 @@ import { CheckCircle2, ArrowRight } from "lucide-react";
 
 // Local SVG icon paths for each service index
 const SERVICE_ICONS = [
-  "/Hisham/image (1).svg",
-  "/Hisham/image (2).svg",
-  "/Hisham/image (3).svg",
-  "/Hisham/image (4).svg",
-  "/Hisham/image (5).svg",
-  "/Hisham/image (6).svg",
+  "/image (1).svg",
+  "/image (2).svg",
+  "/image (3).svg",
+  "/image (4).svg",
+  "/image (5).svg",
+  "/image (6).svg",
 ];
 
 interface ServiceCardsProps {

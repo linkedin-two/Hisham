@@ -16,7 +16,7 @@ export default function PartnerTrustBar() {
           
           {/* Partner 1 */}
           <div className="flex items-center space-x-3 bg-gray-50 px-5 py-3 rounded-2xl border border-gray-200 hover:border-[#103C82] transition-colors">
-            <img src="/Hisham/allindiablooddonorsassociation.webp" alt="Partner Logo" className="h-10 w-auto object-contain" />
+            <img src="/allindiablooddonorsassociation.webp" alt="Partner Logo" className="h-10 w-auto object-contain" />
             <div className="text-left">
               <span className="font-extrabold text-xs text-gray-900 block">All India Donors Assoc.</span>
               <span className="text-[10px] text-gray-500 font-semibold">Official Health & Medical Partner</span>
@@ -25,7 +25,7 @@ export default function PartnerTrustBar() {
 
           {/* Partner 2 */}
           <div className="flex items-center space-x-3 bg-gray-50 px-5 py-3 rounded-2xl border border-gray-200 hover:border-[#F58220] transition-colors">
-            <img src="/Hisham/ashik.webp" alt="Consultancy Partner" className="h-10 w-auto object-contain" />
+            <img src="/ashik.webp" alt="Consultancy Partner" className="h-10 w-auto object-contain" />
             <div className="text-left">
               <span className="font-extrabold text-xs text-gray-900 block">Ashik Educational Consultancy</span>
               <span className="text-[10px] text-[#F58220] font-bold">Authorized Placement Hub</span>
@@ -34,7 +34,7 @@ export default function PartnerTrustBar() {
 
           {/* Partner 3: SVG Icon Badge 1 */}
           <div className="flex items-center space-x-3 bg-gray-50 px-5 py-3 rounded-2xl border border-gray-200">
-            <img src="/Hisham/image (1).svg" alt="NMC Certified" className="h-8 w-8 object-contain" />
+            <img src="/image (1).svg" alt="NMC Certified" className="h-8 w-8 object-contain" />
             <div className="text-left">
               <span className="font-extrabold text-xs text-gray-900 block">NMC & WHO Compliant</span>
               <span className="text-[10px] text-emerald-600 font-bold">100% English Medium</span>
@@ -43,7 +43,7 @@ export default function PartnerTrustBar() {
 
           {/* Partner 4: SVG Icon Badge 2 */}
           <div className="flex items-center space-x-3 bg-gray-50 px-5 py-3 rounded-2xl border border-gray-200">
-            <img src="/Hisham/image (2).svg" alt="Visa Clearance" className="h-8 w-8 object-contain" />
+            <img src="/image (2).svg" alt="Visa Clearance" className="h-8 w-8 object-contain" />
             <div className="text-left">
               <span className="font-extrabold text-xs text-gray-900 block">MEA & HRD Apostille</span>
               <span className="text-[10px] text-[#103C82] font-bold">99.8% Visa Approval</span>

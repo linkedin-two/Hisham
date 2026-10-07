@@ -27,7 +27,7 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
         {/* Logo Image + Brand edzkool */}
         <Link href="/" className="flex items-center space-x-3 group">
           <img
-            src="/Hisham/logo.png"
+            src="/logo.png"
             alt="Edzkool Logo"
             className="h-11 w-auto object-contain rounded-xl shadow-sm group-hover:scale-105 transition-transform"
           />

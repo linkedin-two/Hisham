@@ -13,7 +13,7 @@ export default function LeadershipSection() {
           {/* Left Column: Image /about.png */}
           <div className="lg:col-span-5 relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white group">
             <img
-              src="/Hisham/about.png"
+              src="/about.png"
               alt="Edzkool Medical Education Journey"
               className="w-full h-[400px] object-cover group-hover:scale-105 transition-transform duration-700"
             />

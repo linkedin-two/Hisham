@@ -82,7 +82,7 @@ export default function HeroSection({ onOpenModal }: HeroSectionProps) {
           <div className="relative lg:ml-auto animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
             <div className="relative rounded-[2.5rem] bg-gradient-to-tr from-[#103C82] to-[#1c55b3] p-1 shadow-2xl transform rotate-2 hover:rotate-0 transition-transform duration-500">
               <img 
-                src="/Hisham/10.png" 
+                src="/10.png" 
                 alt="Online Coaching Session" 
                 className="rounded-[2.4rem] object-cover w-full h-auto"
               />

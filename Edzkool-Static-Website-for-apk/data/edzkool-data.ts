@@ -61,7 +61,7 @@ export const EDZKOOL_DATA = {
         "Intensive speaking and writing feedback",
         "Flexible scheduling"
       ],
-      image: "/Hisham/abroad.png"
+      image: "/abroad.png"
     },
     {
       id: "grades-1-10",
@@ -77,7 +77,7 @@ export const EDZKOOL_DATA = {
         "Regular parent-teacher updates",
         "Doubt clearing on demand"
       ],
-      image: "/Hisham/14.png"
+      image: "/14.png"
     },
     {
       id: "coding",
@@ -93,7 +93,7 @@ export const EDZKOOL_DATA = {
         "Logic and algorithmic thinking",
         "Live code review"
       ],
-      image: "/Hisham/16.png"
+      image: "/16.png"
     },
     {
       id: "english",
@@ -109,7 +109,7 @@ export const EDZKOOL_DATA = {
         "Grammar and vocabulary building",
         "Real-life scenarios roleplay"
       ],
-      image: "/Hisham/20.png"
+      image: "/20.png"
     }
   ] as Program[],
   services: [
@@ -140,21 +140,21 @@ export const EDZKOOL_DATA = {
       exam: "IELTS Academic",
       score: "Band 8.0",
       review: "The 1-on-1 IELTS coaching was incredible. My tutor identified my weaknesses in writing and helped me improve dramatically.",
-      image: "/Hisham/ashik.webp",
+      image: "/ashik.webp",
     },
     {
       name: "Riya Gupta",
       exam: "Grade 9 Math",
       score: "95%",
       review: "Math used to be my weakest subject. Edzkool's personalized tutoring helped me understand the concepts rather than just memorizing formulas.",
-      image: "/Hisham/ashik.webp",
+      image: "/ashik.webp",
     },
     {
       name: "Aryan Patel",
       exam: "Python Coding",
       score: "Advanced",
       review: "I built my first web app after just 3 months of coding classes. The live code reviews make a huge difference.",
-      image: "/Hisham/ashik.webp",
+      image: "/ashik.webp",
     },
   ] as Testimonial[],
   faqs: [
@@ -185,6 +185,6 @@ export const EDZKOOL_DATA = {
     author: "Dr. A. Rahman",
     role: "Founder & Academic Director",
     body: "We believe in the power of personalized mentorship.",
-    image: "/Hisham/ashik.webp",
+    image: "/ashik.webp",
   },
 };
