@@ -49,24 +49,24 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
         </Link>
 
         {/* Links */}
-        <div className="hidden lg:flex items-center space-x-6 font-bold text-gray-700 text-sm">
-          <Link href="/#services" className="hover:text-[#103C82] transition-colors">
-            Services
+        <div className="hidden lg:flex items-center space-x-7 font-semibold text-gray-700 text-sm">
+          <Link href="/" className="hover:text-[#103C82] transition-colors">
+            Home
           </Link>
           <Link href="/#programs" className="hover:text-[#103C82] transition-colors">
             Programs
           </Link>
-          <Link href="/programs/ielts" className="hover:text-[#103C82] transition-colors">
-            IELTS Prep
+          <Link href="/#medical-services" className="hover:text-[#103C82] transition-colors">
+            Medical Abroad
           </Link>
-          <Link href="/programs/coding" className="hover:text-[#103C82] transition-colors">
-            Coding Classes
+          <Link href="/#comparison" className="hover:text-[#103C82] transition-colors">
+            Why Edzkool
           </Link>
-          <Link href="/blog" className="hover:text-[#103C82] transition-colors">
-            Blog
+          <Link href="/#testimonials" className="hover:text-[#103C82] transition-colors">
+            Testimonials
           </Link>
-          <Link href="/#reviews" className="hover:text-[#103C82] transition-colors">
-            Reviews
+          <Link href="/#faq" className="hover:text-[#103C82] transition-colors">
+            FAQ
           </Link>
         </div>
 
@@ -74,16 +74,16 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
         <div className="hidden sm:flex items-center space-x-4">
           <a
             href={`tel:${EDZKOOL_DATA.company.phone}`}
-            className="flex items-center space-x-2 text-[#103C82] font-extrabold text-sm hover:underline"
+            className="flex items-center space-x-2 text-[#103C82] font-bold text-sm hover:underline"
           >
             <PhoneCall className="w-4 h-4 text-[#F58220]" />
             <span className="hidden xl:inline">{EDZKOOL_DATA.company.phone}</span>
           </a>
           <button
             onClick={handleModalClick}
-            className="bg-[#103C82] hover:bg-[#0B2A5D] text-white px-6 py-2.5 rounded-pill font-black text-sm transition-all transform hover:-translate-y-0.5 shadow-md border-b-2 border-[#F58220]"
+            className="bg-[#103C82] hover:bg-[#0B2A5D] text-white px-5 py-2.5 rounded-full font-bold text-sm transition-all transform hover:-translate-y-0.5 shadow-sm border border-[#103C82]"
           >
-            Book Free Counseling
+            Book Free Consultation
           </button>
         </div>
 
@@ -101,11 +101,11 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
       {mobileMenuOpen && (
         <div className="lg:hidden bg-white border-b border-gray-200 px-4 pt-2 pb-6 space-y-4 font-bold text-gray-800">
           <Link
-            href="/#services"
+            href="/"
             onClick={() => setMobileMenuOpen(false)}
             className="block py-2 hover:text-[#103C82]"
           >
-            Services
+            Home
           </Link>
           <Link
             href="/#programs"
@@ -115,34 +115,41 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
             Programs
           </Link>
           <Link
-            href="/programs/ielts"
+            href="/#medical-services"
             onClick={() => setMobileMenuOpen(false)}
             className="block py-2 hover:text-[#103C82]"
           >
-            IELTS Prep
+            Medical Abroad
           </Link>
           <Link
-            href="/programs/coding"
+            href="/#comparison"
             onClick={() => setMobileMenuOpen(false)}
             className="block py-2 hover:text-[#103C82]"
           >
-            Coding Classes
+            Why Edzkool
           </Link>
           <Link
-            href="/blog"
+            href="/#testimonials"
             onClick={() => setMobileMenuOpen(false)}
             className="block py-2 hover:text-[#103C82]"
           >
-            Blog
+            Testimonials
+          </Link>
+          <Link
+            href="/#faq"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block py-2 hover:text-[#103C82]"
+          >
+            FAQ
           </Link>
           <button
             onClick={() => {
               setMobileMenuOpen(false);
               handleModalClick();
             }}
-            className="w-full bg-[#103C82] text-white py-3 rounded-pill font-extrabold text-center shadow-md border-b-2 border-[#F58220]"
+            className="w-full bg-[#103C82] text-white py-3 rounded-full font-bold text-center shadow-md"
           >
-            Book Free Counseling
+            Book Free Consultation
           </button>
         </div>
       )}

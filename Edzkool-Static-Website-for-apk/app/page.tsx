@@ -76,7 +76,7 @@ export default function Home() {
         </div>
         <button
           onClick={handleOpenModal}
-          className="bg-[#103C82] text-white px-5 py-2.5 rounded-pill text-xs font-black shadow-md border-b-2 border-[#F58220]"
+          className="bg-[#103C82] text-white px-5 py-2.5 rounded-full text-xs font-bold shadow-md"
         >
           Book Free Call
         </button>
