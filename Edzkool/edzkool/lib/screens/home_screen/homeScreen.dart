@@ -1,8 +1,9 @@
-﻿import 'package:edzkool/services/home_api_service.dart';
+import 'package:edzkool/services/home_api_service.dart';
 import 'package:edzkool/utils/authenticated_http.dart';
 import 'package:flutter/material.dart';
 import 'package:edzkool/utils/app_log.dart';
 import 'package:flutter/services.dart';
+import 'package:edzkool/services/update_service.dart';
 import 'package:edzkool/_env/env.dart';
 import 'package:edzkool/screens/home_screen/homescreenreplaceable/homeScreen_happysplash.dart';
 import 'package:edzkool/utils/responsive.dart';
@@ -41,7 +42,7 @@ class HomeScreen extends ConsumerStatefulWidget {
   ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends ConsumerState<HomeScreen> {
+class _HomeScreenState extends ConsumerState<HomeScreen> with WidgetsBindingObserver {
   Measurements? size;
   HomeData? homeData;
   int universityLength = 0;
@@ -52,10 +53,30 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        UpdateService.checkForUpdates(context, BaseUrl.baseUrlApi);
+      }
+    });
+
     // Call fetchData when the widget is first created
     fetchData();
     getLengthOfAllUniversities();
     getLengthOfAllCourses();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed && mounted) {
+      UpdateService.checkForUpdates(context, BaseUrl.baseUrlApi);
+    }
   }
 
   // Method to refresh university count (can be called on pull-to-refresh or error)

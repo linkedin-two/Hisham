@@ -12,9 +12,15 @@ enum _UpdateStatus { idle, downloading, installing, error }
 
 class UpdateService {
   /// Checks the server for updates.
+  static bool _isCheckingOrShowing = false;
+
+  /// Checks the server for updates.
   /// Returns `true` if a mandatory update is active (blocking standard app navigation),
   /// or `false` if the app can proceed to home/login screen.
   static Future<bool> checkForUpdates(BuildContext context, String apiBaseUrl) async {
+    if (_isCheckingOrShowing) return false;
+    _isCheckingOrShowing = true;
+
     try {
       PackageInfo packageInfo = await PackageInfo.fromPlatform();
       int currentVersionCode = int.tryParse(packageInfo.buildNumber) ?? 1;
@@ -40,7 +46,7 @@ class UpdateService {
           if (latestVersionCode > currentVersionCode && apkUrl.isNotEmpty) {
             if (!context.mounted) return false;
 
-            // Display and AWAIT the dialog so the splash screen doesn't navigate away mid-download
+            // Display and AWAIT the dialog so the UI doesn't navigate away mid-download
             await showDialog<bool>(
               context: context,
               barrierDismissible: !isMandatory,
@@ -55,13 +61,15 @@ class UpdateService {
               ),
             );
 
-            // If mandatory, stay on splash screen (don't navigate into app)
+            // If mandatory, return true to signal blocking
             return isMandatory;
           }
         }
       }
     } catch (e) {
       debugPrint("UpdateService: Failed to check for updates -> $e");
+    } finally {
+      _isCheckingOrShowing = false;
     }
     return false;
   }
