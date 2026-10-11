@@ -177,6 +177,110 @@ class ClinicalCase(models.Model):
 
 
 
+def _convert_pdf_to_images_task(flashcard_id):
+    """
+    Background worker to extract images from an uploaded Flashcard PDF.
+    Runs asynchronously so Django admin HTTP requests respond in <1 second
+    and never hit Gunicorn's 30-second worker timeout on large (14MB+) files.
+    """
+    from notes.models import Flashcard, FlashcardImage
+
+    try:
+        flashcard = Flashcard.objects.filter(pk=flashcard_id).first()
+        if not flashcard or not flashcard.pdf_file:
+            return
+
+        temp_pdf_path = None
+        try:
+            try:
+                pdf_path = flashcard.pdf_file.path
+            except (NotImplementedError, AttributeError):
+                import tempfile
+                with tempfile.NamedTemporaryFile(delete=False, suffix='.pdf') as tf:
+                    for chunk in flashcard.pdf_file.chunks():
+                        tf.write(chunk)
+                    temp_pdf_path = tf.name
+                pdf_path = temp_pdf_path
+
+            if not os.path.exists(pdf_path):
+                logger.warning(f"Flashcard {flashcard_id}: PDF file not found at {pdf_path}")
+                return
+
+            title_parts = []
+            if flashcard.subject and hasattr(flashcard.subject, 'name'):
+                title_parts.append(flashcard.subject.name)
+            if flashcard.sub_subject and hasattr(flashcard.sub_subject, 'name'):
+                title_parts.append(flashcard.sub_subject.name)
+            title_slug = slugify("_".join(title_parts)).replace("-", "_")[:80] or f"flashcard_{flashcard_id}"
+
+            # 1. Fast path: pypdfium2 (self-contained, zero system dependencies, low memory, very fast)
+            converted = False
+            try:
+                import pypdfium2 as pdfium
+                pdf = pdfium.PdfDocument(pdf_path)
+                num_pages = len(pdf)
+                for i, page in enumerate(pdf, start=1):
+                    image = page.render(scale=1.5).to_pil()
+                    image_io = io.BytesIO()
+                    image.save(image_io, format="JPEG", quality=85)
+                    image_io.seek(0)
+
+                    filename = f"{title_slug}_page_{i}.jpg"
+                    FlashcardImage.objects.create(
+                        flashcard=flashcard,
+                        image=File(image_io, name=filename),
+                        caption=f"Page {i}"
+                    )
+                    image_io.close()
+                converted = True
+                logger.info(f"Flashcard {flashcard_id}: Successfully extracted {num_pages} images via pypdfium2.")
+            except ImportError:
+                pass
+            except Exception as e:
+                logger.warning(f"Flashcard {flashcard_id}: pypdfium2 conversion failed, trying fallback: {e}")
+
+            # 2. Fallback: pdf2image (requires poppler-utils)
+            if not converted:
+                try:
+                    from pdf2image import convert_from_path
+                    poppler_kwargs = {}
+                    if platform.system() == "Windows" and os.path.exists(r"C:\poppler\bin"):
+                        poppler_kwargs["poppler_path"] = r"C:\poppler\bin"
+
+                    pages = convert_from_path(
+                        pdf_path,
+                        dpi=120,
+                        fmt="jpeg",
+                        thread_count=1,
+                        **poppler_kwargs
+                    )
+                    for i, page in enumerate(pages, start=1):
+                        image_io = io.BytesIO()
+                        page.save(image_io, format="JPEG", quality=85)
+                        image_io.seek(0)
+
+                        filename = f"{title_slug}_page_{i}.jpg"
+                        FlashcardImage.objects.create(
+                            flashcard=flashcard,
+                            image=File(image_io, name=filename),
+                            caption=f"Page {i}"
+                        )
+                        image_io.close()
+                    logger.info(f"Flashcard {flashcard_id}: Successfully extracted {len(pages)} images via pdf2image.")
+                except Exception as fallback_err:
+                    logger.warning(f"Flashcard {flashcard_id}: pdf2image fallback failed: {fallback_err}")
+
+        finally:
+            if temp_pdf_path and os.path.exists(temp_pdf_path):
+                try:
+                    os.remove(temp_pdf_path)
+                except Exception:
+                    pass
+
+    except Exception as exc:
+        logger.exception(f"Flashcard {flashcard_id}: Background PDF image extraction failed: {exc}")
+
+
 class Flashcard(models.Model):
     category = models.ForeignKey(Category, related_name='flashcards', on_delete=models.CASCADE)
     subject = models.ForeignKey(Subject, related_name='subject_name', on_delete=models.CASCADE)
@@ -199,71 +303,12 @@ class Flashcard(models.Model):
         if self.pdf_file and new_pdf:
             # Clear old images first (in case of update)
             self.images.all().delete()
-            self._process_pdf_to_images()
-
-    def _process_pdf_to_images(self):
-        temp_pdf_path = None
-        try:
-            # 1. Resolve PDF file path (supports local storage and S3/remote storage)
-            try:
-                pdf_path = self.pdf_file.path
-            except (NotImplementedError, AttributeError):
-                import tempfile
-                with tempfile.NamedTemporaryFile(delete=False, suffix='.pdf') as tf:
-                    for chunk in self.pdf_file.chunks():
-                        tf.write(chunk)
-                    temp_pdf_path = tf.name
-                pdf_path = temp_pdf_path
-
-            if not os.path.exists(pdf_path):
-                logger.warning(f"Flashcard {self.pk}: PDF file does not exist at {pdf_path}")
-                return
-
-            # 2. Check Poppler configuration
-            poppler_kwargs = {}
-            if platform.system() == "Windows" and os.path.exists(r"C:\poppler\bin"):
-                poppler_kwargs["poppler_path"] = r"C:\poppler\bin"
-
-            # 3. Convert with memory-friendly settings (120 DPI, single thread to prevent OOM on large 14MB+ files)
-            pages = convert_from_path(
-                pdf_path,
-                dpi=120,
-                fmt="jpeg",
-                thread_count=1,
-                **poppler_kwargs
-            )
-
-            # 4. Build title slug
-            title_parts = []
-            if self.subject and hasattr(self.subject, 'name'):
-                title_parts.append(self.subject.name)
-            if self.sub_subject and hasattr(self.sub_subject, 'name'):
-                title_parts.append(self.sub_subject.name)
-            title_slug = slugify("_".join(title_parts)).replace("-", "_")[:80] or f"flashcard_{self.pk}"
-
-            for i, page in enumerate(pages, start=1):
-                image_io = io.BytesIO()
-                page.save(image_io, format="JPEG", quality=85)
-                image_io.seek(0)
-
-                filename = f"{title_slug}_page_{i}.jpg"
-                FlashcardImage.objects.create(
-                    flashcard=self,
-                    image=File(image_io, name=filename),
-                    caption=f"Page {i}"
-                )
-                image_io.close()
-
-            logger.info(f"Flashcard {self.pk}: Successfully extracted {len(pages)} images from PDF.")
-        except Exception as e:
-            # Catch all conversion errors so the Flashcard and PDF remain saved without crashing admin with HTTP 500
-            logger.exception(f"Flashcard {self.pk}: Failed to convert PDF to images: {e}")
-        finally:
-            if temp_pdf_path and os.path.exists(temp_pdf_path):
-                try:
-                    os.remove(temp_pdf_path)
-                except Exception:
-                    pass
+            import threading
+            threading.Thread(
+                target=_convert_pdf_to_images_task,
+                args=(self.pk,),
+                daemon=True
+            ).start()
 
 
 class FlashcardImage(models.Model):
