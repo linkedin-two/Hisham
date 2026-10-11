@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:edzkool/services/update_service.dart';
 import 'package:edzkool/_env/env.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:edzkool/_env/env.dart';
 import 'package:edzkool/providers/user_email_provider.dart';
 import 'package:edzkool/screens/home_screen/homeScreen.dart';
 import 'package:edzkool/screens/login/sign_in.dart';
@@ -27,12 +26,18 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _initApp();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _initApp();
+    });
   }
 
   Future<void> _initApp() async {
-    bool isMandatory = await UpdateService.checkForUpdates(context, BaseUrl.baseUrlApi);
-    if (isMandatory) return; // Stop the flow, force update
+    bool hasPendingMandatoryUpdate = await UpdateService.checkForUpdates(context, BaseUrl.baseUrlApi);
+    if (!mounted) return;
+    if (hasPendingMandatoryUpdate) {
+      // Mandatory update blocks normal flow
+      return;
+    }
     _checkLoginAndNavigate();
   }
 
