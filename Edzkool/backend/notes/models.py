@@ -5,9 +5,12 @@ from edvoayge.file_utils import title_based_upload_path
 import os
 import platform
 import io
+import logging
 from uuid import uuid4
 from django.core.files import File
 from pdf2image import convert_from_path
+
+logger = logging.getLogger(__name__)
 
 
 class Category(models.Model):
@@ -177,13 +180,15 @@ class ClinicalCase(models.Model):
 class Flashcard(models.Model):
     category = models.ForeignKey(Category, related_name='flashcards', on_delete=models.CASCADE)
     subject = models.ForeignKey(Subject, related_name='subject_name', on_delete=models.CASCADE)
-    sub_subject = models.ForeignKey(SubSubject, related_name='sub_subject_name', on_delete=models.CASCADE)
+    sub_subject = models.ForeignKey(SubSubject, related_name='sub_subject_name', on_delete=models.CASCADE, null=True, blank=True)
     description = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     pdf_file = models.FileField(upload_to=title_based_upload_path("flashcards/pdfs"), blank=True, null=True)
 
     def __str__(self):
-        return f"{self.subject.name} → {self.sub_subject.name}"
+        sub_name = self.sub_subject.name if self.sub_subject else "General"
+        subj_name = self.subject.name if self.subject else "Unknown"
+        return f"{subj_name} → {sub_name}"
 
     def save(self, *args, **kwargs):
         # Check if a new file is uploaded
@@ -197,30 +202,68 @@ class Flashcard(models.Model):
             self._process_pdf_to_images()
 
     def _process_pdf_to_images(self):
-        pdf_path = self.pdf_file.path
+        temp_pdf_path = None
+        try:
+            # 1. Resolve PDF file path (supports local storage and S3/remote storage)
+            try:
+                pdf_path = self.pdf_file.path
+            except (NotImplementedError, AttributeError):
+                import tempfile
+                with tempfile.NamedTemporaryFile(delete=False, suffix='.pdf') as tf:
+                    for chunk in self.pdf_file.chunks():
+                        tf.write(chunk)
+                    temp_pdf_path = tf.name
+                pdf_path = temp_pdf_path
 
-        if platform.system() == "Windows":
-            # Use your Windows Poppler installation path
-            pages = convert_from_path(pdf_path, poppler_path=r"C:\poppler\bin")
-        else:
-            # On Linux (Render, Ubuntu, VPS, etc.), Poppler is installed via apt
-            pages = convert_from_path(pdf_path)
+            if not os.path.exists(pdf_path):
+                logger.warning(f"Flashcard {self.pk}: PDF file does not exist at {pdf_path}")
+                return
 
-        # Build clean title slug for converted page images
-        title_parts = [self.subject.name, self.sub_subject.name]
-        title_slug = slugify("_".join(title_parts)).replace("-", "_")[:80] or f"flashcard_{self.pk}"
+            # 2. Check Poppler configuration
+            poppler_kwargs = {}
+            if platform.system() == "Windows" and os.path.exists(r"C:\poppler\bin"):
+                poppler_kwargs["poppler_path"] = r"C:\poppler\bin"
 
-        for i, page in enumerate(pages, start=1):
-            image_io = io.BytesIO()
-            page.save(image_io, format="JPEG")
-            image_io.seek(0)
-
-            filename = f"{title_slug}_page_{i}.jpg"
-            FlashcardImage.objects.create(
-                flashcard=self,
-                image=File(image_io, name=filename),
-                caption=f"Page {i}"
+            # 3. Convert with memory-friendly settings (120 DPI, single thread to prevent OOM on large 14MB+ files)
+            pages = convert_from_path(
+                pdf_path,
+                dpi=120,
+                fmt="jpeg",
+                thread_count=1,
+                **poppler_kwargs
             )
+
+            # 4. Build title slug
+            title_parts = []
+            if self.subject and hasattr(self.subject, 'name'):
+                title_parts.append(self.subject.name)
+            if self.sub_subject and hasattr(self.sub_subject, 'name'):
+                title_parts.append(self.sub_subject.name)
+            title_slug = slugify("_".join(title_parts)).replace("-", "_")[:80] or f"flashcard_{self.pk}"
+
+            for i, page in enumerate(pages, start=1):
+                image_io = io.BytesIO()
+                page.save(image_io, format="JPEG", quality=85)
+                image_io.seek(0)
+
+                filename = f"{title_slug}_page_{i}.jpg"
+                FlashcardImage.objects.create(
+                    flashcard=self,
+                    image=File(image_io, name=filename),
+                    caption=f"Page {i}"
+                )
+                image_io.close()
+
+            logger.info(f"Flashcard {self.pk}: Successfully extracted {len(pages)} images from PDF.")
+        except Exception as e:
+            # Catch all conversion errors so the Flashcard and PDF remain saved without crashing admin with HTTP 500
+            logger.exception(f"Flashcard {self.pk}: Failed to convert PDF to images: {e}")
+        finally:
+            if temp_pdf_path and os.path.exists(temp_pdf_path):
+                try:
+                    os.remove(temp_pdf_path)
+                except Exception:
+                    pass
 
 
 class FlashcardImage(models.Model):

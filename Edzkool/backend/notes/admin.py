@@ -148,8 +148,8 @@ class FlashcardImageInline(admin.TabularInline):
 @admin.register(Flashcard)
 class FlashcardAdmin(admin.ModelAdmin):
     inlines = [FlashcardImageInline]
-    list_display = ("category", "subject", "description", "created_at")
-    list_filter = ("category", "subject")
-    search_fields = ("subject__name", "category__name", "description")
+    list_display = ("category", "subject", "sub_subject", "description", "created_at")
+    list_filter = ("category", "subject", "sub_subject")
+    search_fields = ("subject__name", "sub_subject__name", "category__name", "description")
     readonly_fields = ("created_at",)
-    fields = ("category", "subject", "description", "pdf_file", "created_at")
+    fields = ("category", "subject", "sub_subject", "description", "pdf_file", "created_at")

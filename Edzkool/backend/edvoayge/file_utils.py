@@ -1,17 +1,18 @@
 import os
 from django.utils.text import slugify
+from django.utils.deconstruct import deconstructible
 
 
-def title_based_upload_path(folder_prefix):
+@deconstructible
+class TitleBasedUploadPath:
     """
-    Returns an upload_to callable that names files according to model metadata
+    Deconstructible callable for upload_to that names files according to model metadata
     (subject, title, name) with clean separators instead of random UUIDs.
-
-    Example:
-      folder_prefix = "flashcards/pdfs"
-      output = "flashcards/pdfs/anatomy_cardiovascular_system.pdf"
     """
-    def _upload_to(instance, filename):
+    def __init__(self, folder_prefix):
+        self.folder_prefix = folder_prefix
+
+    def __call__(self, instance, filename):
         ext = os.path.splitext(filename)[1].lower()
         parts = []
 
@@ -34,6 +35,8 @@ def title_based_upload_path(folder_prefix):
         safe_slug = slugify(combined).replace("-", "_")
         safe_slug = safe_slug[:120].strip("_") or "file"
 
-        return f"{folder_prefix}/{safe_slug}{ext}"
+        return f"{self.folder_prefix}/{safe_slug}{ext}"
 
-    return _upload_to
+
+def title_based_upload_path(folder_prefix):
+    return TitleBasedUploadPath(folder_prefix)
