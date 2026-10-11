@@ -131,6 +131,7 @@ class FlashcardSerializer(serializers.ModelSerializer):
     """
     # Nested serializer for images remains the same
     images = FlashcardImageSerializer(many=True, read_only=True)
+    total_images = serializers.IntegerField(source='images.count', read_only=True)
     category = CategorySerializer(read_only=True)
     
     # Provides the string representation of the subject (e.g., "Anatomy") for reading.
@@ -151,6 +152,7 @@ class FlashcardSerializer(serializers.ModelSerializer):
             'category',
             'description',
             'created_at',
+            'total_images',
             'images',
         ]
         extra_kwargs = {
