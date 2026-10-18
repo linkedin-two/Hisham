@@ -1,52 +1,42 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import JsonLdSchema from "@/components/JsonLdSchema";
 
 export const metadata: Metadata = {
-  title: "Edzkool, online, school: one to one tuition, coaching classes, English, IELTS, Tuition 1-10, Coding Classes",
+  title: "EDZKOOL | Online School and Tuition",
   description:
-    "Edzkool offers premium online 1-to-1 tuition, coaching classes, English, IELTS, tuition for grades 1-10, and coding classes. Empowering students with personalized learning.",
+    "Live online classes for Grades 1 to 12, plus coding and language courses, taught by real teachers who know every child by name.",
   icons: {
-    icon: "/logo.png",
-    shortcut: "/logo.png",
-    apple: "/logo.png",
+    icon: "/assets/17e886f9-9be4-4119-a22b-a34ae37ae216.png",
+    shortcut: "/assets/17e886f9-9be4-4119-a22b-a34ae37ae216.png",
+    apple: "/assets/17e886f9-9be4-4119-a22b-a34ae37ae216.png",
   },
   keywords: [
-    "Edzkool",
-    "online school",
-    "one to one tuition",
-    "coaching classes",
-    "English",
-    "IELTS",
-    "Tuition 1-10",
-    "Coding Classes",
-    "Personalized Learning",
-    "Online Tutoring"
+    "EDZKOOL",
+    "Online School",
+    "Online Tuition Grades 1-12",
+    "Coding and Robotics for kids",
+    "Language Courses",
+    "Certification Courses",
+    "1-on-1 tutoring",
+    "Live interactive classes"
   ],
-  authors: [{ name: "Edzkool" }],
+  authors: [{ name: "EDZKOOL" }],
   metadataBase: new URL("https://edzkool.com"),
-  alternates: {
-    canonical: "/",
-  },
   openGraph: {
-    title: "Edzkool, online, school: one to one tuition, coaching classes, English, IELTS, Tuition 1-10, Coding Classes",
-    description: "Edzkool offers premium online 1-to-1 tuition, coaching classes, English, IELTS, tuition for grades 1-10, and coding classes.",
+    title: "EDZKOOL | Online School and Tuition",
+    description:
+      "Live online classes for Grades 1 to 12, plus coding and language courses, taught by real teachers who know every child by name.",
     url: "https://edzkool.com",
-    siteName: "Edzkool",
+    siteName: "EDZKOOL",
     images: [
       {
-        url: "/logo.png",
+        url: "/assets/17e886f9-9be4-4119-a22b-a34ae37ae216.png",
         width: 800,
         height: 600,
       },
     ],
     locale: "en_IN",
     type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Edzkool, online, school: one to one tuition, coaching classes",
-    description: "Premium online 1-to-1 tuition, coaching classes, English, IELTS, Tuition 1-10, and coding classes with Edzkool.",
   },
 };
 
@@ -57,10 +47,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <head>
-        <JsonLdSchema />
-      </head>
-      <body className="antialiased selection:bg-[#103C82] selection:text-white">
+      <body className="antialiased selection:bg-[#144787] selection:text-white">
         {children}
       </body>
     </html>

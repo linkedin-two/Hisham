@@ -9,42 +9,42 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        bright: {
-          purple: "#103C82", // Deep Blue Primary
-          "purple-dark": "#0B2A5D",
-          violet: "#F58220", // Orange Secondary
-          yellow: "#F58220",
-          orange: "#F58220",
-          "orange-dark": "#D96C0D",
-          red: "#FD4343",
-          teal: "#00E2A3",
-          blue: "#103C82",
-          pink: "#E958B7",
-          bg: "#F0F4FA",
-          dark: "#1E293B",
-          muted: "#64748B",
+        navy: {
+          DEFAULT: "#0B2A5B",
+          dark: "#071D3F",
+          light: "#14376E",
         },
-        edzkool: {
-          blue: "#103C82",
-          "blue-dark": "#0B2A5D",
-          orange: "#F58220",
-          "orange-dark": "#D96C0D",
-          bg: "#F0F4FA",
-        }
+        royal: {
+          DEFAULT: "#144787",
+          hover: "#0E3566",
+          light: "#1D5BAA",
+        },
+        amber: {
+          DEFAULT: "#FD9202",
+          light: "#FFB84D",
+          soft: "#FFD08A",
+          dark: "#A85B00",
+          tint: "#FFF1DB",
+        },
+        ice: "#F4F8FE",
+        cream: "#FFF8EC",
+        "warm-border": "#F3E3C8",
+        "cool-border": "#E3EAF4",
+        "brand-text": "#1B2A44",
+        "brand-muted": "#44546F",
+        "brand-subtle": "#9DB4D8",
       },
       fontFamily: {
-        sans: ["var(--font-nunito)", "sans-serif"],
-        heading: ["var(--font-nunito)", "sans-serif"],
+        sans: ["'Plus Jakarta Sans'", "system-ui", "-apple-system", "sans-serif"],
+        serif: ["'Fraunces'", "Georgia", "serif"],
       },
       borderRadius: {
-        card: "20px",
         pill: "9999px",
-        "3xl": "24px",
+        "2xl": "22px",
+        "3xl": "32px",
       },
-      boxShadow: {
-        bright: "0 10px 30px -5px rgba(16, 60, 130, 0.1)",
-        "bright-hover": "0 20px 40px -10px rgba(16, 60, 130, 0.2)",
-        "card-soft": "0 4px 20px 0 rgba(0, 0, 0, 0.05)",
+      maxWidth: {
+        container: "1200px",
       },
     },
   },

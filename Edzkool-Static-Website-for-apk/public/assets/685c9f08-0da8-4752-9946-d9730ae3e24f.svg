@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" width="480" height="360">
+<rect width="480" height="360" rx="28" fill="#EAF1FB"></rect>
+<circle cx="240" cy="190" r="110" fill="#FFFFFF"></circle>
+<circle cx="240" cy="190" r="110" fill="none" stroke="#144787" stroke-width="5"></circle>
+<ellipse cx="240" cy="190" rx="46" ry="110" fill="none" stroke="#8FB4E6" stroke-width="4"></ellipse>
+<line x1="130" y1="190" x2="350" y2="190" stroke="#8FB4E6" stroke-width="4"></line>
+<path d="M146 130 Q240 160 334 130" stroke="#8FB4E6" stroke-width="4" fill="none"></path>
+<path d="M146 250 Q240 220 334 250" stroke="#8FB4E6" stroke-width="4" fill="none"></path>
+<g transform="translate(36 40) rotate(-5)">
+<rect width="150" height="62" rx="20" fill="#FD9202"></rect>
+<path d="M28 62 L22 82 L52 62 Z" fill="#FD9202"></path>
+<text x="75" y="41" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="28" fill="#0B2A5B">Hello!</text>
+</g>
+<g transform="translate(300 28) rotate(4)">
+<rect width="140" height="62" rx="20" fill="#144787"></rect>
+<path d="M112 62 L118 82 L88 62 Z" fill="#144787"></path>
+<text x="70" y="41" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="28" fill="#FFFFFF">Hola!</text>
+</g>
+<g transform="translate(290 262) rotate(-3)">
+<rect width="164" height="62" rx="20" fill="#FFFFFF" stroke="#144787" stroke-width="3"></rect>
+<path d="M30 0 L22 -20 L56 0 Z" fill="#FFFFFF" stroke="#144787" stroke-width="3" stroke-linejoin="round"></path>
+<text x="82" y="41" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="26" fill="#144787">Bonjour!</text>
+</g>
+<g transform="translate(26 270)">
+<rect width="140" height="56" rx="18" fill="#FFD08A"></rect>
+<text x="70" y="37" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="24" fill="#0B2A5B">Namaste</text>
+</g>
+</svg>

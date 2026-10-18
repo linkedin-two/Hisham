@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" width="480" height="360">
+<rect width="480" height="360" rx="28" fill="#EAF1FB"></rect>
+<circle cx="410" cy="60" r="34" fill="#FFD08A"></circle>
+<rect x="70" y="262" width="250" height="26" rx="6" fill="#144787"></rect>
+<rect x="86" y="236" width="220" height="26" rx="6" fill="#FD9202"></rect>
+<rect x="60" y="210" width="240" height="26" rx="6" fill="#0B2A5B"></rect>
+<rect x="76" y="184" width="200" height="26" rx="6" fill="#8FB4E6"></rect>
+<rect x="84" y="195" width="80" height="5" rx="2.5" fill="#FFFFFF"></rect>
+<rect x="72" y="221" width="110" height="5" rx="2.5" fill="#FD9202"></rect>
+<rect x="98" y="247" width="90" height="5" rx="2.5" fill="#0B2A5B"></rect>
+<rect x="82" y="273" width="120" height="5" rx="2.5" fill="#FFFFFF"></rect>
+<g transform="translate(330 120) rotate(30)">
+<rect width="20" height="150" rx="4" fill="#FD9202"></rect>
+<path d="M0 150 L10 176 L20 150 Z" fill="#F2C6A0"></path>
+<path d="M6 168 L10 176 L14 168 Z" fill="#2B2B3A"></path>
+<rect width="20" height="22" rx="4" fill="#0B2A5B"></rect>
+</g>
+<g transform="translate(120 70)">
+<rect width="150" height="96" rx="14" fill="#FFFFFF" stroke="#C9DBF3" stroke-width="2"></rect>
+<text x="75" y="44" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="30" fill="#144787">E = mc²</text>
+<text x="75" y="76" text-anchor="middle" font-family="Georgia,serif" font-weight="700" font-size="20" fill="#FD9202">π ≈ 3.14</text>
+</g>
+<circle cx="380" cy="270" r="40" fill="none" stroke="#144787" stroke-width="5"></circle>
+<ellipse cx="380" cy="270" rx="40" ry="16" fill="none" stroke="#FD9202" stroke-width="4"></ellipse>
+<circle cx="380" cy="270" r="7" fill="#0B2A5B"></circle>
+</svg>
