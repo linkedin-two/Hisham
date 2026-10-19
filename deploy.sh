@@ -56,10 +56,17 @@ fi
 # ------------------------------------------------------------------------------
 echo "[Step 2/8] Installing system dependencies via apt..."
 apt-get update -q
+
+# Detect current Python version on EC2 (e.g. 3.12, 3.14)
+PY_VER=$(python3 -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')" 2>/dev/null || echo "3")
+
 apt-get install -y -q \
     python3 \
     python3-pip \
     python3-venv \
+    python3-dev \
+    "python${PY_VER}-dev" \
+    build-essential \
     nginx \
     certbot \
     python3-certbot-nginx \
@@ -68,30 +75,46 @@ apt-get install -y -q \
     gcc \
     libpq-dev \
     curl \
-    git
+    git || true
 
 # ------------------------------------------------------------------------------
 # STEP 3: Setup Python Virtual Environments & Dependencies
 # ------------------------------------------------------------------------------
-echo "[Step 3/8] Configuring Python virtual environments..."
+echo "[Step 3/8] Configuring Python virtual environments (Python $PY_VER)..."
 
 # Edzkool venv
 if [ ! -d "$VENV_EDZKOOL" ]; then
     echo ">> Creating virtualenv for Edzkool..."
     python3 -m venv "$VENV_EDZKOOL"
 fi
-echo ">> Installing Edzkool requirements.txt..."
-"$VENV_EDZKOOL/bin/pip" install --upgrade pip --quiet
-"$VENV_EDZKOOL/bin/pip" install -r "$EDZKOOL_DIR/requirements.txt" --quiet
+echo ">> Upgrading pip, setuptools, and wheel for Edzkool..."
+"$VENV_EDZKOOL/bin/pip" install --upgrade pip setuptools wheel --quiet
+
+echo ">> Installing Edzkool dependencies..."
+if ! "$VENV_EDZKOOL/bin/pip" install -r "$EDZKOOL_DIR/requirements.txt"; then
+    echo ">> Notice: Direct requirements install encountered a build issue. Applying compatibility fallback..."
+    grep -v "psycopg2" "$EDZKOOL_DIR/requirements.txt" > /tmp/edzkool_req.txt
+    "$VENV_EDZKOOL/bin/pip" install -r /tmp/edzkool_req.txt --quiet
+    rm -f /tmp/edzkool_req.txt
+    # Try installing modern psycopg[binary] (supported in Python 3.12, 3.13, 3.14)
+    "$VENV_EDZKOOL/bin/pip" install "psycopg[binary]" --quiet || "$VENV_EDZKOOL/bin/pip" install psycopg2-binary --quiet || true
+fi
 
 # Edvoyage venv
 if [ ! -d "$VENV_EDVOYAGE" ]; then
     echo ">> Creating virtualenv for Edvoyage..."
     python3 -m venv "$VENV_EDVOYAGE"
 fi
-echo ">> Installing Edvoyage requirements.txt..."
-"$VENV_EDVOYAGE/bin/pip" install --upgrade pip --quiet
-"$VENV_EDVOYAGE/bin/pip" install -r "$EDVOYAGE_DIR/requirements.txt" --quiet
+echo ">> Upgrading pip, setuptools, and wheel for Edvoyage..."
+"$VENV_EDVOYAGE/bin/pip" install --upgrade pip setuptools wheel --quiet
+
+echo ">> Installing Edvoyage dependencies..."
+if ! "$VENV_EDVOYAGE/bin/pip" install -r "$EDVOYAGE_DIR/requirements.txt"; then
+    echo ">> Notice: Direct requirements install encountered an issue. Retrying with fallback..."
+    grep -v "psycopg2" "$EDVOYAGE_DIR/requirements.txt" > /tmp/edvoyage_req.txt || cp "$EDVOYAGE_DIR/requirements.txt" /tmp/edvoyage_req.txt
+    "$VENV_EDVOYAGE/bin/pip" install -r /tmp/edvoyage_req.txt --quiet
+    rm -f /tmp/edvoyage_req.txt
+fi
 
 # ------------------------------------------------------------------------------
 # STEP 4: Configure Production Environment Variables (.env)

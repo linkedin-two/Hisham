@@ -21,7 +21,8 @@ drf-nested-routers==0.94.2
 drf-yasg==1.21.10
 
 # --- Database (PostgreSQL in production via DATABASE_URL) ---
-psycopg2-binary==2.9.10
+psycopg2-binary>=2.9.9; python_version < "3.13"
+psycopg[binary]>=3.1.18; python_version >= "3.13"
 
 # --- AWS S3 media storage ---
 django-storages[s3]==1.14.4
