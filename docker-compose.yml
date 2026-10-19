@@ -1,0 +1,95 @@
+services:
+  # ============================================================================
+  # 1. Edzkool Backend Service
+  # Handles API requests for: edzkool.duckdns.org
+  # ============================================================================
+  edzkool:
+    build:
+      context: ./Edzkool/backend
+      dockerfile: Dockerfile
+    container_name: edzkool_backend
+    restart: unless-stopped
+    env_file:
+      - ./Edzkool/backend/.env.docker
+    environment:
+      - SQLITE_DB_PATH=/app/data/edzkool_db.sqlite3
+    volumes:
+      - edzkool_data:/app/data
+      - edzkool_media:/app/media
+    networks:
+      - app_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # ============================================================================
+  # 2. Edvoyage Backend Service
+  # Handles API requests for: edvoyage.duckdns.org
+  # ============================================================================
+  edvoyage:
+    build:
+      context: ./Edvoyage/backend/EdVoyage
+      dockerfile: Dockerfile
+    container_name: edvoyage_backend
+    restart: unless-stopped
+    env_file:
+      - ./Edvoyage/backend/EdVoyage/.env.docker
+    environment:
+      - SQLITE_DB_PATH=/app/data/db.sqlite3
+    volumes:
+      - edvoyage_data:/app/data
+      - edvoyage_media:/app/media
+    networks:
+      - app_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # ============================================================================
+  # 3. Caddy Reverse Proxy & Automatic SSL
+  # Exposes Ports 80 & 443 on the single EC2 instance.
+  # Automatically fetches and renews Let's Encrypt certificates for:
+  #   - edzkool.duckdns.org
+  #   - edvoyage.duckdns.org
+  # ============================================================================
+  reverse-proxy:
+    image: caddy:2.8-alpine
+    container_name: caddy_proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"     # Standard HTTP (Redirects to HTTPS)
+      - "443:443"   # Standard HTTPS (Terminates SSL)
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data      # Persists certificates across restarts
+      - caddy_config:/config  # Persists dynamic configuration
+    depends_on:
+      - edzkool
+      - edvoyage
+    networks:
+      - app_network
+
+volumes:
+  edzkool_data:
+    name: edzkool_data
+  edzkool_media:
+    name: edzkool_media
+  edvoyage_data:
+    name: edvoyage_data
+  edvoyage_media:
+    name: edvoyage_media
+  caddy_data:
+    name: caddy_data
+  caddy_config:
+    name: caddy_config
+
+networks:
+  app_network:
+    name: app_network
+    driver: bridge

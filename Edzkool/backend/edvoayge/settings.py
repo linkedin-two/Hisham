@@ -39,6 +39,8 @@ elif DEBUG:
     ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', '[::1]', '*']
 else:
     ALLOWED_HOSTS = [
+        'edzkool.duckdns.org',
+        'edvoyage.duckdns.org',
         'edvoyage.work.gd',
         'edzkool.publicvm.com',
         'edvoyage-backup-cursor-2.onrender.com',
@@ -161,7 +163,7 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'edzkool_db.sqlite3',
+            'NAME': os.getenv('SQLITE_DB_PATH', str(BASE_DIR / 'edzkool_db.sqlite3')),
         }
     }
 
@@ -278,6 +280,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://edvoyage-backup-cursor.onrender.com",
     "https://edvoyage-backup-cursor-2.onrender.com",
     "https://edzkool.onrender.com",
+    "https://edzkool.duckdns.org",
     "https://edvoyage.duckdns.org",
     "https://edzkool.publicvm.com",
     "http://localhost:3000",
@@ -305,6 +308,7 @@ CSRF_TRUSTED_ORIGINS = [
     "https://edvoyage-backup-cursor.onrender.com",
     "https://edvoyage-backup-cursor-2.onrender.com",
     "https://edzkool.onrender.com",
+    "https://edzkool.duckdns.org",
     "https://edvoyage.duckdns.org",
     "https://edzkool.publicvm.com",
     "http://54.234.68.39",

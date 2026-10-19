@@ -32,6 +32,8 @@ if _allowed_hosts_env:
     ALLOWED_HOSTS = [h.strip() for h in _allowed_hosts_env.split(',') if h.strip()]
 else:
     ALLOWED_HOSTS = [
+        "edvoyage.duckdns.org",
+        "edzkool.duckdns.org",
         "hisham-1.onrender.com",
         ".onrender.com",
         "35.175.196.177",
@@ -130,7 +132,7 @@ else:
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.getenv('SQLITE_DB_PATH', str(BASE_DIR / 'db.sqlite3')),
     }
 }
 
@@ -237,6 +239,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://edvoyage.netlify.app",
     "https://edvoyage-backup-cursor.onrender.com",
     "https://edvoyage.duckdns.org",  # Production VPS
+    "https://edzkool.duckdns.org",
      "http://localhost:64806",
      "http://localhost:43489",
      "http://localhost:29726",
@@ -259,6 +262,7 @@ CSRF_TRUSTED_ORIGINS = [
     "https://edvoyage.netlify.app",
     "https://edvoyage-backup-cursor.onrender.com",
     "https://edvoyage.duckdns.org",
+    "https://edzkool.duckdns.org",
     "http://localhost:3000",
     "http://127.0.0.1:3000",
 ]

@@ -20,6 +20,7 @@ import fitz
 from django.core.files import File
 from django.db import close_old_connections, connection, transaction
 from django.utils import timezone
+from django.utils.text import slugify
 from PIL import Image
 
 from notes.models import Flashcard, FlashcardImage
@@ -65,9 +66,22 @@ def convert_pdf_to_flashcard_images(flashcard: Flashcard) -> int:
                 image.save(image_io, format="JPEG", quality=DEFAULT_JPEG_QUALITY)
                 image_io.seek(0)
 
+                # Construct clean human-readable English filename for the page image
+                title_parts = []
+                if flashcard.subject and hasattr(flashcard.subject, 'name'):
+                    title_parts.append(str(flashcard.subject.name))
+                if flashcard.sub_subject and hasattr(flashcard.sub_subject, 'name'):
+                    title_parts.append(str(flashcard.sub_subject.name))
+                if not title_parts and flashcard.pdf_file:
+                    pdf_base = os.path.splitext(os.path.basename(flashcard.pdf_file.name))[0]
+                    title_parts.append(pdf_base)
+
+                clean_base = slugify("_".join(title_parts)).replace("-", "_")[:70] or f"flashcard_{flashcard.pk}"
+                page_filename = f"{clean_base}_page_{page_number}.jpg"
+
                 FlashcardImage.objects.create(
                     flashcard=flashcard,
-                    image=File(image_io, name=f"{uuid4()}.jpg"),
+                    image=File(image_io, name=page_filename),
                     caption=f"Page {page_number}",
                 )
                 page_count += 1

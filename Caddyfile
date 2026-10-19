@@ -1,0 +1,50 @@
+# ==============================================================================
+# Caddy Reverse Proxy Configuration
+# Automatic Let's Encrypt SSL for Dual DuckDNS Domains on a Single EC2
+# ==============================================================================
+
+{
+    admin off
+}
+
+# --- Edzkool Backend ---
+edzkool.duckdns.org {
+    reverse_proxy edzkool:8000 {
+        header_up Host {host}
+        header_up X-Real-IP {remote_host}
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Forwarded-Proto https
+    }
+
+    encode gzip zstd
+
+    request_body {
+        max_size 100MB
+    }
+
+    log {
+        output stdout
+        format console
+    }
+}
+
+# --- Edvoyage Backend ---
+edvoyage.duckdns.org {
+    reverse_proxy edvoyage:8000 {
+        header_up Host {host}
+        header_up X-Real-IP {remote_host}
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Forwarded-Proto https
+    }
+
+    encode gzip zstd
+
+    request_body {
+        max_size 100MB
+    }
+
+    log {
+        output stdout
+        format console
+    }
+}

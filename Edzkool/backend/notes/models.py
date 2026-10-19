@@ -208,9 +208,14 @@ def _convert_pdf_to_images_task(flashcard_id):
 
             title_parts = []
             if flashcard.subject and hasattr(flashcard.subject, 'name'):
-                title_parts.append(flashcard.subject.name)
+                title_parts.append(str(flashcard.subject.name))
             if flashcard.sub_subject and hasattr(flashcard.sub_subject, 'name'):
-                title_parts.append(flashcard.sub_subject.name)
+                title_parts.append(str(flashcard.sub_subject.name))
+            if not title_parts and flashcard.pdf_file:
+                pdf_base = os.path.splitext(os.path.basename(flashcard.pdf_file.name))[0]
+                title_parts.append(pdf_base)
+            if not title_parts and flashcard.description:
+                title_parts.append(str(flashcard.description[:30]))
             title_slug = slugify("_".join(title_parts)).replace("-", "_")[:80] or f"flashcard_{flashcard_id}"
 
             # 1. Fast path: pypdfium2 (self-contained, zero system dependencies, low memory, very fast)
