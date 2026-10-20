@@ -32,6 +32,7 @@ def health_check(request):
 
 
 urlpatterns = [
+    path('', health_check, name='root_health_check'),
     path('health/', health_check, name='health_check'),
     path('health', health_check),
     path('admin/', custom_admin_site.urls),

@@ -157,12 +157,12 @@ echo "[Step 5/8] Running Django database migrations & static asset collection...
 echo ">> Migrating Edzkool..."
 "$VENV_EDZKOOL/bin/python" "$EDZKOOL_DIR/manage.py" migrate --no-input
 echo ">> Collecting Edzkool static files..."
-"$VENV_EDZKOOL/bin/python" "$EDZKOOL_DIR/manage.py" collectstatic --no-input --quiet
+"$VENV_EDZKOOL/bin/python" "$EDZKOOL_DIR/manage.py" collectstatic --no-input -v 0
 
 echo ">> Migrating Edvoyage..."
 "$VENV_EDVOYAGE/bin/python" "$EDVOYAGE_DIR/manage.py" migrate --no-input
 echo ">> Collecting Edvoyage static files..."
-"$VENV_EDVOYAGE/bin/python" "$EDVOYAGE_DIR/manage.py" collectstatic --no-input --quiet
+"$VENV_EDVOYAGE/bin/python" "$EDVOYAGE_DIR/manage.py" collectstatic --no-input -v 0
 
 # Fix file permissions
 chown -R "$TARGET_USER:$TARGET_GROUP" "$EDZKOOL_DIR" "$EDVOYAGE_DIR"
