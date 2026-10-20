@@ -164,8 +164,10 @@ echo ">> Migrating Edvoyage..."
 echo ">> Collecting Edvoyage static files..."
 "$VENV_EDVOYAGE/bin/python" "$EDVOYAGE_DIR/manage.py" collectstatic --no-input -v 0
 
-# Fix file permissions
+# Fix file permissions for application and Nginx (www-data)
 chown -R "$TARGET_USER:$TARGET_GROUP" "$EDZKOOL_DIR" "$EDVOYAGE_DIR"
+chmod o+x /home/"$TARGET_USER" 2>/dev/null || true
+chmod -R o+rX "$EDZKOOL_DIR/staticfiles" "$EDZKOOL_DIR/media" "$EDVOYAGE_DIR/staticfiles" "$EDVOYAGE_DIR/media" 2>/dev/null || true
 
 # ------------------------------------------------------------------------------
 # STEP 6: Configure Systemd Services for Gunicorn
