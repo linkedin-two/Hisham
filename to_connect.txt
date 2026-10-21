@@ -1,0 +1,20 @@
+SSH info
+Connect assist
+SSH key pair assigned at launch
+Hisham
+Public DNS
+ec2-52-20-26-80.compute-1.amazonaws.com
+Username
+ubuntu
+How to connect
+1. Open an SSH client
+
+2. Locate or download your private key file
+
+3. Ensure your key is not publicly viewable
+
+chmod 400 "Hisham.pem"
+
+4. Connect to your instance using its Public DNS
+
+ssh -i "Hisham.pem" ubuntu@ec2-52-20-26-80.compute-1.amazonaws.com
